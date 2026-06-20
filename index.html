@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="City of Influence — an interactive motion portfolio for a senior marketing strategist.">
     <title>City of Influence</title>
-    <link rel="stylesheet" href="styles.css?v=20260620-4">
+    <link rel="stylesheet" href="styles.css?v=20260620-5">
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -44,44 +44,76 @@
 
           <div class="scene-shell" id="sceneShell">
             <picture class="scene-picture">
+              <source media="(max-width: 768px)" srcset="scene-mobile.webp" type="image/webp">
+              <source media="(max-width: 768px)" srcset="scene-mobile-fallback.jpg" type="image/jpeg">
               <source srcset="scene-desktop.webp" type="image/webp">
               <img
                 class="scene-image"
                 src="scene-desktop-fallback.jpg"
-                alt="A full cinematic nighttime city scene featuring a professional Black woman, a Portfolio board, a Shape Influence Impact billboard, an Ideas in Motion bus-shelter board, a Global Perspectives news board and an illuminated Contact box."
+                alt="A responsive cinematic nighttime city scene featuring a professional Black woman, a Portfolio board, a Shape Influence Impact billboard, an Ideas in Motion bus-shelter board, a Global Perspectives news board and an illuminated Contact box."
               >
             </picture>
 
             <div class="motion-layers" aria-hidden="true">
               <div class="scene-object layer-plane-cover">
-                <img src="desktop-plane-cover.webp" alt="">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-plane-cover.webp" type="image/webp">
+                  <img src="desktop-plane-cover.webp" alt="">
+                </picture>
               </div>
               <div class="scene-object layer-twinkle layer-twinkle-1">
-                <img src="desktop-twinkle-1.webp" alt="">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-twinkle-1.webp" type="image/webp">
+                  <img src="desktop-twinkle-1.webp" alt="">
+                </picture>
               </div>
               <div class="scene-object layer-twinkle layer-twinkle-2">
-                <img src="desktop-twinkle-2.webp" alt="">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-twinkle-2.webp" type="image/webp">
+                  <img src="desktop-twinkle-2.webp" alt="">
+                </picture>
               </div>
               <div class="scene-object layer-twinkle layer-twinkle-3">
-                <img src="desktop-twinkle-3.webp" alt="">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-twinkle-3.webp" type="image/webp">
+                  <img src="desktop-twinkle-3.webp" alt="">
+                </picture>
               </div>
               <div class="scene-object layer-billboard">
-                <img src="desktop-billboard.webp" alt="">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-billboard.webp" type="image/webp">
+                  <img src="desktop-billboard.webp" alt="">
+                </picture>
               </div>
               <div class="scene-object layer-portfolio">
-                <img src="desktop-portfolio.webp" alt="">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-portfolio.webp" type="image/webp">
+                  <img src="desktop-portfolio.webp" alt="">
+                </picture>
               </div>
               <div class="scene-object layer-bus">
-                <img src="desktop-bus.webp" alt="">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-bus.webp" type="image/webp">
+                  <img src="desktop-bus.webp" alt="">
+                </picture>
               </div>
               <div class="scene-object layer-news">
-                <img src="desktop-news.webp" alt="">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-news.webp" type="image/webp">
+                  <img src="desktop-news.webp" alt="">
+                </picture>
               </div>
               <div class="scene-object layer-contact">
-                <img src="desktop-contact.webp" alt="">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-contact.webp" type="image/webp">
+                  <img src="desktop-contact.webp" alt="">
+                </picture>
               </div>
               <div class="scene-object layer-plane">
-                <img src="desktop-plane.webp" alt="">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-plane.webp" type="image/webp">
+                  <img src="desktop-plane.webp" alt="">
+                </picture>
               </div>
             </div>
 
@@ -172,6 +204,6 @@
   </footer>
 
     <script src="content.js?v=20260620-3"></script>
-    <script src="app.js?v=20260620-4"></script>
+    <script src="app.js?v=20260620-5"></script>
   </body>
 </html>
