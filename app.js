@@ -201,7 +201,7 @@
         ${bestSuitedMarkup}
         <div class="panel-actions">
           ${showEmail ? `<a class="button" href="mailto:${escapeHtml(contact.email)}">Email now</a>` : ''}
-          ${(showDetailsCard || showContextCard) ? '<a class="button-secondary" href="#contact">View contact section</a>' : ''}
+          ${(showDetailsCard || showContextCard) ? '<a class="button-secondary" href="contact.html">View contact page</a>' : ''}
         </div>
       </article>
     `;
@@ -268,7 +268,7 @@
       return;
     }
     if (action === 'contact') {
-      openDrawer(action, button);
+      window.location.href = 'contact.html';
     }
   }
 
