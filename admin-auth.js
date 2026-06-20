@@ -42,7 +42,7 @@
     adminScriptLoaded = true;
 
     const script = document.createElement('script');
-    script.src = 'admin.js?v=20260620-9';
+    script.src = 'admin.js?v=20260620-11';
     script.async = false;
     script.addEventListener('error', function () {
       adminScriptLoaded = false;

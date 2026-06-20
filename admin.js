@@ -25,6 +25,19 @@
     emptyState: 'Public contact details are currently unavailable.'
   };
 
+
+  const DEFAULT_RESUME = {
+    url: '',
+    label: 'View Résumé',
+    embedInput: '',
+    downloadUrl: '',
+    previewEnabled: false,
+    modalTitle: 'Rae-Anne Richardson Résumé',
+    downloadLabel: 'Download Résumé',
+    openLabel: 'Open Full Screen',
+    fallbackText: 'If the preview does not load, use one of the options below.'
+  };
+
   const MAX_CASE_IMAGES = 5;
 
   function clone(value) {
@@ -79,6 +92,9 @@
     if (!Array.isArray(value.brands)) value.brands = [];
     if (!Array.isArray(value.caseStudies)) value.caseStudies = [];
     if (!Array.isArray(value.articles)) value.articles = [];
+
+    value.resume = Object.assign({}, DEFAULT_RESUME, value.resume || {});
+    value.resume.previewEnabled = value.resume.previewEnabled === true;
 
     value.contactPage = Object.assign({}, DEFAULT_CONTACT_PAGE, value.contactPage || {});
     value.caseStudies = value.caseStudies.map(normaliseCaseStudy);

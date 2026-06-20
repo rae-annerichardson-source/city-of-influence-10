@@ -2609,3 +2609,227 @@ a.case-gallery-item:focus-visible {
     animation: none;
   }
 }
+
+
+/* =========================================================
+   ON-SITE RÉSUMÉ PREVIEW MODAL
+   ========================================================= */
+
+body.resume-modal-open {
+  overflow: hidden;
+}
+
+.resume-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 220;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.75rem, 2.5vw, 1.75rem);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    visibility 180ms ease;
+}
+
+.resume-modal.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.resume-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(57, 133, 205, 0.22), transparent 34%),
+    rgba(3, 10, 19, 0.82);
+  backdrop-filter: blur(14px);
+}
+
+.resume-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, 100%);
+  height: min(900px, calc(100svh - 2rem));
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  overflow: hidden;
+  border: 1px solid rgba(204, 229, 250, 0.34);
+  border-radius: clamp(18px, 2vw, 28px);
+  color: #eef7ff;
+  background:
+    linear-gradient(145deg, rgba(11, 27, 45, 0.98), rgba(5, 14, 27, 0.98));
+  box-shadow:
+    0 36px 100px rgba(0, 0, 0, 0.52),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(18px) scale(0.985);
+  transition: transform 220ms cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.resume-modal.is-open .resume-modal-panel {
+  transform: translateY(0) scale(1);
+}
+
+.resume-modal-panel:focus {
+  outline: none;
+}
+
+.resume-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1rem, 2.4vw, 1.5rem);
+  border-bottom: 1px solid rgba(207, 229, 247, 0.15);
+}
+
+.resume-modal-header .eyebrow {
+  margin-bottom: 0.4rem;
+  color: rgba(166, 213, 250, 0.72);
+}
+
+.resume-modal-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  letter-spacing: -0.035em;
+}
+
+.resume-modal-close {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(217, 237, 253, 0.25);
+  border-radius: 50%;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.resume-modal-close:hover,
+.resume-modal-close:focus-visible {
+  outline: none;
+  transform: rotate(4deg) scale(1.04);
+  border-color: rgba(219, 240, 255, 0.7);
+  background: rgba(114, 188, 247, 0.18);
+  box-shadow: 0 0 0 4px rgba(107, 181, 241, 0.14);
+}
+
+.resume-preview-stage {
+  min-height: 0;
+  margin: clamp(0.75rem, 1.8vw, 1.1rem);
+  overflow: hidden;
+  border: 1px solid rgba(198, 224, 246, 0.2);
+  border-radius: 16px;
+  background: #eef3f7;
+}
+
+.resume-preview-stage iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 460px;
+  border: 0;
+  background: #ffffff;
+}
+
+.resume-preview-placeholder {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  color: #516477;
+  text-align: center;
+  background:
+    radial-gradient(circle at 25% 18%, rgba(102, 177, 238, 0.15), transparent 35%),
+    #eef3f7;
+}
+
+.resume-preview-placeholder[hidden] {
+  display: none;
+}
+
+.resume-preview-note {
+  margin: 0;
+  padding: 0 clamp(1rem, 2.4vw, 1.5rem);
+  color: rgba(220, 236, 249, 0.68);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.resume-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem clamp(1rem, 2.4vw, 1.5rem) clamp(1rem, 2.4vw, 1.5rem);
+}
+
+.resume-modal-actions [hidden] {
+  display: none;
+}
+
+.resume-preview-toggle {
+  width: fit-content;
+}
+
+/* The modal remains fully usable on tablets and phones. */
+@media (max-width: 720px) {
+  .resume-modal {
+    padding: 0;
+  }
+
+  .resume-modal-panel {
+    width: 100%;
+    height: 100svh;
+    border: 0;
+    border-radius: 0;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+  }
+
+  .resume-modal-header {
+    padding: 0.95rem 1rem;
+  }
+
+  .resume-preview-stage {
+    margin: 0.65rem;
+    border-radius: 12px;
+  }
+
+  .resume-preview-stage iframe {
+    min-height: 100%;
+  }
+
+  .resume-preview-note {
+    padding: 0 0.9rem;
+    font-size: 0.82rem;
+  }
+
+  .resume-modal-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 0.8rem;
+  }
+
+  .resume-modal-actions .button,
+  .resume-modal-actions .button-secondary {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resume-modal,
+  .resume-modal-panel,
+  .resume-modal-close {
+    transition: none;
+  }
+}

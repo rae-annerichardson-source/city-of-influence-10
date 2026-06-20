@@ -48,6 +48,62 @@
     };
   }
 
+
+  const DEFAULT_RESUME = {
+    url: '',
+    label: 'View Résumé',
+    embedInput: '',
+    downloadUrl: '',
+    previewEnabled: false,
+    modalTitle: 'Rae-Anne Richardson Résumé',
+    downloadLabel: 'Download Résumé',
+    openLabel: 'Open Full Screen',
+    fallbackText: 'If the preview does not load, use one of the options below.'
+  };
+
+  function safeHttpsUrl(value) {
+    const candidate = String(value || '').trim();
+    if (!candidate) return '';
+
+    try {
+      const url = new URL(candidate, window.location.href);
+      return url.protocol === 'https:' ? url.href : '';
+    } catch (error) {
+      return '';
+    }
+  }
+
+  function extractIframeSource(value) {
+    const input = String(value || '').trim();
+    if (!input) return '';
+
+    const iframeMatch = input.match(/<iframe\b[^>]*\bsrc\s*=\s*(["'])(.*?)\1/i);
+    const candidate = iframeMatch ? iframeMatch[2] : input;
+    const decoded = candidate
+      .replace(/&amp;/gi, '&')
+      .replace(/&#38;/g, '&');
+
+    return safeHttpsUrl(decoded);
+  }
+
+  function normaliseResume(rawResume) {
+    const resume = Object.assign({}, DEFAULT_RESUME, rawResume || {});
+    const embedUrl = extractIframeSource(resume.embedUrl || resume.embedInput);
+    const shareUrl = safeHttpsUrl(resume.url);
+    const downloadUrl = safeHttpsUrl(resume.downloadUrl) || shareUrl;
+
+    return {
+      embedUrl,
+      shareUrl,
+      downloadUrl,
+      previewEnabled: resume.previewEnabled === true,
+      modalTitle: String(resume.modalTitle || DEFAULT_RESUME.modalTitle).trim(),
+      downloadLabel: String(resume.downloadLabel || DEFAULT_RESUME.downloadLabel).trim(),
+      openLabel: String(resume.openLabel || DEFAULT_RESUME.openLabel).trim(),
+      fallbackText: String(resume.fallbackText || DEFAULT_RESUME.fallbackText).trim()
+    };
+  }
+
   function setText(selector, value) {
     document.querySelectorAll(selector).forEach((node) => {
       node.textContent = value || '';
@@ -155,8 +211,23 @@
   const hotspotButtons = Array.from(document.querySelectorAll('.hotspot'));
   const closeButtons = drawer.querySelectorAll('[data-drawer-close]');
   const motionToggle = document.getElementById('motionToggle');
+
+  const resume = normaliseResume(content.resume);
+  const resumeModal = document.getElementById('resumeModal');
+  const resumeModalPanel = resumeModal?.querySelector('.resume-modal-panel');
+  const resumeModalTitle = document.getElementById('resumeModalTitle');
+  const resumePreviewFrame = document.getElementById('resumePreviewFrame');
+  const resumePreviewPlaceholder = document.getElementById('resumePreviewPlaceholder');
+  const resumePreviewNote = document.getElementById('resumePreviewNote');
+  const resumeDownloadButton = document.getElementById('resumeDownloadButton');
+  const resumeOpenButton = document.getElementById('resumeOpenButton');
+  const resumeCloseButtons = resumeModal
+    ? Array.from(resumeModal.querySelectorAll('[data-resume-close]'))
+    : [];
+
   let lastTrigger = null;
   let activeCategory = null;
+  let lastResumeTrigger = null;
 
   function brandGalleryMarkup() {
     if (!content.brands.length) {
@@ -244,15 +315,136 @@
     activeCategory = null;
   }
 
+
+  function configureResumeModal() {
+    if (!resumeModal) return;
+
+    if (resumeModalTitle) {
+      resumeModalTitle.textContent = resume.modalTitle;
+    }
+
+    if (resumePreviewNote) {
+      resumePreviewNote.textContent = resume.fallbackText;
+    }
+
+    if (resumePreviewFrame) {
+      resumePreviewFrame.hidden = !resume.embedUrl;
+      resumePreviewFrame.title = `${resume.modalTitle} preview`;
+    }
+
+    if (resumePreviewPlaceholder) {
+      resumePreviewPlaceholder.hidden = Boolean(resume.embedUrl);
+      const message = resume.embedUrl
+        ? ''
+        : 'An embedded résumé preview has not been configured.';
+      resumePreviewPlaceholder.innerHTML = message ? `<p>${escapeHtml(message)}</p>` : '';
+    }
+
+    if (resumeDownloadButton) {
+      resumeDownloadButton.textContent = resume.downloadLabel;
+      resumeDownloadButton.href = resume.downloadUrl || '#';
+      resumeDownloadButton.hidden = !resume.downloadUrl;
+    }
+
+    if (resumeOpenButton) {
+      resumeOpenButton.textContent = resume.openLabel;
+      resumeOpenButton.href = resume.embedUrl || resume.shareUrl || '#';
+      resumeOpenButton.hidden = !(resume.embedUrl || resume.shareUrl);
+    }
+  }
+
+  function openResumeModal(trigger) {
+    const hasAnyResumeLink = Boolean(
+      resume.embedUrl ||
+      resume.shareUrl ||
+      resume.downloadUrl
+    );
+
+    if (!hasAnyResumeLink) {
+      alert('Add a public OneDrive résumé link or embed iframe in the update portal first.');
+      return;
+    }
+
+    // Preserve the existing direct-link behaviour until the preview is enabled.
+    if (!resume.previewEnabled) {
+      const fallbackUrl = resume.shareUrl || resume.downloadUrl;
+      if (fallbackUrl) window.open(fallbackUrl, '_blank', 'noopener');
+      return;
+    }
+
+    if (!resumeModal || !resumeModalPanel) {
+      const fallbackUrl = resume.embedUrl || resume.shareUrl || resume.downloadUrl;
+      if (fallbackUrl) window.open(fallbackUrl, '_blank', 'noopener');
+      return;
+    }
+
+    configureResumeModal();
+    lastResumeTrigger = trigger || document.activeElement;
+
+    if (resumePreviewFrame && resume.embedUrl) {
+      resumePreviewFrame.src = resume.embedUrl;
+    }
+
+    resumeModal.classList.add('is-open');
+    resumeModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('resume-modal-open');
+    window.setTimeout(() => resumeModalPanel.focus(), 20);
+  }
+
+  function closeResumeModal() {
+    if (!resumeModal || !resumeModal.classList.contains('is-open')) return;
+
+    resumeModal.classList.remove('is-open');
+    resumeModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('resume-modal-open');
+
+    if (resumePreviewFrame) {
+      resumePreviewFrame.src = 'about:blank';
+    }
+
+    if (lastResumeTrigger && typeof lastResumeTrigger.focus === 'function') {
+      lastResumeTrigger.focus();
+    }
+
+    lastResumeTrigger = null;
+  }
+
+  function trapResumeFocus(event) {
+    if (!resumeModal?.classList.contains('is-open') || event.key !== 'Tab') return;
+
+    const selectors = [
+      'a[href]:not([hidden])',
+      'button:not([disabled]):not([hidden])',
+      'iframe:not([hidden])',
+      '[tabindex]:not([tabindex="-1"]):not([hidden])'
+    ];
+
+    const focusable = Array.from(
+      resumeModalPanel.querySelectorAll(selectors.join(','))
+    ).filter((node) => node.offsetParent !== null);
+
+    if (!focusable.length) {
+      event.preventDefault();
+      resumeModalPanel.focus();
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
   function handleAction(button) {
     const action = button.dataset.action;
     if (action === 'resume') {
-      const url = content.resume.url;
-      if (!url || url.includes('example.com')) {
-        alert('Add your OneDrive résumé link in the Content Manager first.');
-        return;
-      }
-      window.open(url, '_blank', 'noopener');
+      openResumeModal(button);
       return;
     }
     if (action === 'case-studies') {
@@ -273,6 +465,12 @@
   }
 
 
+  resumeCloseButtons.forEach((button) => {
+    button.addEventListener('click', closeResumeModal);
+  });
+
+  configureResumeModal();
+
   closeButtons.forEach((button) => button.addEventListener('click', closeDrawer));
 
   drawerBody.addEventListener('click', (event) => {
@@ -281,6 +479,13 @@
   });
 
   document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && resumeModal?.classList.contains('is-open')) {
+      closeResumeModal();
+      return;
+    }
+
+    trapResumeFocus(event);
+
     if (event.key === 'Escape' && drawer.classList.contains('is-open')) closeDrawer();
     if (event.key === 'Tab' && drawer.classList.contains('is-open')) {
       const selectors = ['a[href]', 'button:not([disabled])', '[tabindex]:not([tabindex="-1"])'];

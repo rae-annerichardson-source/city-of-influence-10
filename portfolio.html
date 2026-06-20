@@ -5,7 +5,7 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="City of Influence — an interactive motion portfolio for a senior marketing strategist." name="description"/>
 <title>Interactive Portfolio · City of Influence</title>
-<link href="styles.css?v=20260620-10" rel="stylesheet"/>
+<link href="styles.css?v=20260620-11" rel="stylesheet"/>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -105,7 +105,7 @@
 </div>
 <div aria-hidden="true" class="scene-dim"></div>
 <div aria-label="Interactive scene hotspots" class="hotspots">
-<button aria-label="Open downloadable résumé PDF" class="hotspot hotspot-portfolio" data-action="resume" data-layer="portfolio" type="button">
+<button aria-label="Preview and download résumé" class="hotspot hotspot-portfolio" data-action="resume" data-layer="portfolio" type="button">
 <span class="hotspot-label">Portfolio</span>
 </button>
 <button aria-label="Open the Brands I’ve Built page" class="hotspot hotspot-advertising" data-action="brands" data-layer="advertising" type="button">
@@ -141,13 +141,43 @@
 <div class="drawer-body" id="drawerBody"></div>
 </div>
 </aside>
-<footer class="site-footer">
+<aside aria-hidden="true" class="resume-modal" id="resumeModal">
+<div class="resume-modal-backdrop" data-resume-close=""></div>
+<div aria-labelledby="resumeModalTitle" aria-modal="true" class="resume-modal-panel" role="dialog" tabindex="-1">
+<header class="resume-modal-header">
+<div>
+<p class="eyebrow">Portfolio</p>
+<h2 id="resumeModalTitle">Rae-Anne Richardson Résumé</h2>
+</div>
+<button aria-label="Close résumé preview" class="resume-modal-close" data-resume-close="" type="button">
+        ✕
+      </button>
+</header>
+<div class="resume-preview-stage">
+<iframe allowfullscreen="" hidden="" id="resumePreviewFrame" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Résumé preview"></iframe>
+<div class="resume-preview-placeholder" id="resumePreviewPlaceholder">
+<p>Résumé preview is not available yet.</p>
+</div>
+</div>
+<p class="resume-preview-note" id="resumePreviewNote">
+      If the preview does not load, use one of the options below.
+    </p>
+<div class="resume-modal-actions">
+<a class="button" hidden="" id="resumeDownloadButton" rel="noopener" target="_blank">
+        Download Résumé
+      </a>
+<a class="button-secondary" hidden="" id="resumeOpenButton" rel="noopener" target="_blank">
+        Open Full Screen
+      </a>
+</div>
+</div>
+</aside><footer class="site-footer">
 <div class="footer-inner">
 <span class="footer-credit">City of Influence is an Interactive Portfolio created by Rae-Anne Richardson</span>
 <a class="button footer-login-button" href="admin.html">Login</a>
 </div>
 </footer>
 <script src="content.js?v=20260620-3"></script>
-<script src="app.js?v=20260620-10"></script>
+<script src="app.js?v=20260620-11"></script>
 </body>
 </html>

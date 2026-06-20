@@ -5,7 +5,7 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="noindex,nofollow" name="robots"/>
 <title>Content Manager · City of Influence</title>
-<link href="styles.css?v=20260620-9" rel="stylesheet"/>
+<link href="styles.css?v=20260620-11" rel="stylesheet"/>
 </head>
 <body class="admin-shell">
 <main class="admin-login-shell" id="adminLogin">
@@ -125,34 +125,132 @@
 </div>
 </div>
 </article><article class="admin-card">
-<div class="admin-card-head"><div><h2>Contact page copy</h2><p class="card-copy">Edit the headings, labels and calls to action used on the public Contact page.</p></div></div>
+<div class="admin-card-head">
+<div>
+<h2>Contact page copy</h2>
+<p class="card-copy">Edit the headings, labels and calls to action used on the public Contact page.</p>
+</div>
+</div>
 <div class="form-grid">
-<div class="form-field"><label for="contactPageEyebrow">Page eyebrow</label><input data-path="contactPage.eyebrow" id="contactPageEyebrow"/></div>
-<div class="form-field"><label for="contactPageTitle">Page heading</label><input data-path="contactPage.title" id="contactPageTitle"/></div>
-<div class="form-field full"><label for="contactPageIntro">Introductory text</label><textarea data-path="contactPage.intro" id="contactPageIntro"></textarea></div>
-<div class="form-field"><label for="contactReturnLabel">Return button text</label><input data-path="contactPage.returnLabel" id="contactReturnLabel"/></div>
-<div class="form-field"><label for="contactDetailsTag">Direct details label</label><input data-path="contactPage.detailsTag" id="contactDetailsTag"/></div>
-<div class="form-field"><label for="contactDetailsTitle">Direct details heading</label><input data-path="contactPage.detailsTitle" id="contactDetailsTitle"/></div>
-<div class="form-field"><label for="contactContextTag">Availability area label</label><input data-path="contactPage.contextTag" id="contactContextTag"/></div>
-<div class="form-field"><label for="contactEmailLabel">Email label</label><input data-path="contactPage.emailLabel" id="contactEmailLabel"/></div>
-<div class="form-field"><label for="contactPhoneLabel">Phone label</label><input data-path="contactPage.phoneLabel" id="contactPhoneLabel"/></div>
-<div class="form-field"><label for="contactLinkedInLabel">LinkedIn label</label><input data-path="contactPage.linkedinLabel" id="contactLinkedInLabel"/></div>
-<div class="form-field"><label for="contactLocationLabel">Location label</label><input data-path="contactPage.locationLabel" id="contactLocationLabel"/></div>
-<div class="form-field"><label for="contactPrimaryButtonLabel">Email button text</label><input data-path="contactPage.primaryButtonLabel" id="contactPrimaryButtonLabel"/></div>
-<div class="form-field"><label for="contactSecondaryButtonLabel">Portfolio button text</label><input data-path="contactPage.secondaryButtonLabel" id="contactSecondaryButtonLabel"/></div>
-<div class="form-field full"><label for="contactEmptyState">Empty-state message</label><input data-path="contactPage.emptyState" id="contactEmptyState"/></div>
+<div class="form-field">
+<label for="contactPageEyebrow">Page eyebrow</label>
+<input data-path="contactPage.eyebrow" id="contactPageEyebrow"/>
+</div>
+<div class="form-field">
+<label for="contactPageTitle">Page heading</label>
+<input data-path="contactPage.title" id="contactPageTitle"/>
+</div>
+<div class="form-field full">
+<label for="contactPageIntro">Introductory text</label>
+<textarea data-path="contactPage.intro" id="contactPageIntro"></textarea>
+</div>
+<div class="form-field">
+<label for="contactReturnLabel">Return button text</label>
+<input data-path="contactPage.returnLabel" id="contactReturnLabel"/>
+</div>
+<div class="form-field">
+<label for="contactDetailsTag">Direct details label</label>
+<input data-path="contactPage.detailsTag" id="contactDetailsTag"/>
+</div>
+<div class="form-field">
+<label for="contactDetailsTitle">Direct details heading</label>
+<input data-path="contactPage.detailsTitle" id="contactDetailsTitle"/>
+</div>
+<div class="form-field">
+<label for="contactContextTag">Availability area label</label>
+<input data-path="contactPage.contextTag" id="contactContextTag"/>
+</div>
+<div class="form-field">
+<label for="contactEmailLabel">Email label</label>
+<input data-path="contactPage.emailLabel" id="contactEmailLabel"/>
+</div>
+<div class="form-field">
+<label for="contactPhoneLabel">Phone label</label>
+<input data-path="contactPage.phoneLabel" id="contactPhoneLabel"/>
+</div>
+<div class="form-field">
+<label for="contactLinkedInLabel">LinkedIn label</label>
+<input data-path="contactPage.linkedinLabel" id="contactLinkedInLabel"/>
+</div>
+<div class="form-field">
+<label for="contactLocationLabel">Location label</label>
+<input data-path="contactPage.locationLabel" id="contactLocationLabel"/>
+</div>
+<div class="form-field">
+<label for="contactPrimaryButtonLabel">Email button text</label>
+<input data-path="contactPage.primaryButtonLabel" id="contactPrimaryButtonLabel"/>
+</div>
+<div class="form-field">
+<label for="contactSecondaryButtonLabel">Portfolio button text</label>
+<input data-path="contactPage.secondaryButtonLabel" id="contactSecondaryButtonLabel"/>
+</div>
+<div class="form-field full">
+<label for="contactEmptyState">Empty-state message</label>
+<input data-path="contactPage.emptyState" id="contactEmptyState"/>
+</div>
 </div>
 </article>
 </section>
-<section class="admin-panel" data-panel="resume" hidden="">
-<article class="admin-card">
-<div class="admin-card-head"><h2>Downloadable résumé</h2></div>
-<div class="form-grid">
-<div class="form-field full"><label for="resumeUrl">OneDrive PDF share link</label><input data-path="resume.url" id="resumeUrl" placeholder="https://1drv.ms/... or your direct OneDrive share link" type="url"/><span class="file-note">Use a public view/download link that visitors can open without signing in.</span></div>
-<div class="form-field"><label for="resumeLabel">Link label</label><input data-path="resume.label" id="resumeLabel"/></div>
+<section class="admin-panel" data-panel="resume" hidden=""><article class="admin-card">
+<div class="admin-card-head">
+<div>
+<h2>Résumé preview and download</h2>
+<p class="card-copy">
+        Control the on-site résumé popup shown when visitors select Portfolio in the interactive city.
+      </p>
 </div>
-</article>
-</section>
+</div>
+<div class="form-grid">
+<div class="form-field full">
+<label class="visibility-toggle resume-preview-toggle">
+<input data-path="resume.previewEnabled" type="checkbox"/>
+<span>Enable the on-site résumé preview popup</span>
+</label>
+<span class="file-note">
+        Leave this off until a valid OneDrive embed iframe or embed URL has been added.
+      </span>
+</div>
+<div class="form-field full">
+<label for="resumeEmbedInput">OneDrive embed iframe or embed URL</label>
+<textarea data-path="resume.embedInput" id="resumeEmbedInput" placeholder="Paste the complete &lt;iframe ...&gt;&lt;/iframe&gt; code or only its https://... embed URL"></textarea>
+<span class="file-note">
+        The public website extracts and uses only the secure HTTPS iframe source.
+      </span>
+</div>
+<div class="form-field full">
+<label for="resumeUrl">OneDrive share / fallback URL</label>
+<input data-path="resume.url" id="resumeUrl" placeholder="https://1drv.ms/..." type="url"/>
+<span class="file-note">
+        Used if the embedded preview is unavailable and as the default full-screen link.
+      </span>
+</div>
+<div class="form-field full">
+<label for="resumeDownloadUrl">Optional direct download URL</label>
+<input data-path="resume.downloadUrl" id="resumeDownloadUrl" placeholder="Leave blank to use the share / fallback URL" type="url"/>
+</div>
+<div class="form-field">
+<label for="resumeModalTitle">Popup title</label>
+<input data-path="resume.modalTitle" id="resumeModalTitle"/>
+</div>
+<div class="form-field">
+<label for="resumeLabel">Legacy résumé label</label>
+<input data-path="resume.label" id="resumeLabel"/>
+<span class="file-note">Retained for compatibility with existing content.</span>
+</div>
+<div class="form-field">
+<label for="resumeDownloadLabel">Download button text</label>
+<input data-path="resume.downloadLabel" id="resumeDownloadLabel"/>
+</div>
+<div class="form-field">
+<label for="resumeOpenLabel">Full-screen button text</label>
+<input data-path="resume.openLabel" id="resumeOpenLabel"/>
+</div>
+<div class="form-field full">
+<label for="resumeFallbackText">Preview fallback message</label>
+<input data-path="resume.fallbackText" id="resumeFallbackText"/>
+</div>
+</div>
+</article></section>
 <section class="admin-panel" data-panel="brands" hidden="">
 <article class="admin-card">
 <div class="admin-card-head"><div><h2>Brands gallery</h2><p class="card-copy">Displayed on the full Brands I’ve Built page.</p></div><button class="button" data-add="brands" type="button">Add brand</button></div>
@@ -194,6 +292,6 @@
 </main>
 </div>
 <script src="content.js?v=20260620-3"></script>
-<script src="admin-auth.js?v=20260620-9"></script>
+<script src="admin-auth.js?v=20260620-11"></script>
 </body>
 </html>
