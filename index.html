@@ -3,207 +3,117 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="City of Influence — an interactive motion portfolio for a senior marketing strategist.">
-    <title>City of Influence</title>
-    <link rel="stylesheet" href="styles.css?v=20260620-5">
+    <meta
+      name="description"
+      content="Enter City of Influence, the interactive marketing portfolio of Rae-Anne Richardson, Sr. Marketing Strategist."
+    >
+    <meta name="theme-color" content="#071321">
+    <title>Rae-Anne Richardson · City of Influence</title>
+    <link rel="stylesheet" href="styles.css?v=20260620-6">
   </head>
-  <body>
-    <a class="skip-link" href="#main-content">Skip to main content</a>
+  <body class="welcome-page">
+    <a class="skip-link welcome-skip-link" href="#welcome-content">Skip to entry</a>
 
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="#home" aria-label="Go to home">
-          <span class="brand-mark">Interactive Portfolio</span>
-          <span class="brand-name">City of Influence</span>
+    <div class="welcome-visual" aria-hidden="true">
+      <picture class="welcome-picture">
+        <source media="(max-width: 768px)" srcset="scene-mobile.webp" type="image/webp">
+        <source media="(max-width: 768px)" srcset="scene-mobile-fallback.jpg" type="image/jpeg">
+        <source srcset="scene-desktop.webp" type="image/webp">
+        <img class="welcome-background" src="scene-desktop-fallback.jpg" alt="">
+      </picture>
+      <div class="welcome-depth welcome-depth-back"></div>
+      <div class="welcome-depth welcome-depth-mid"></div>
+      <div class="welcome-light-sweep"></div>
+      <div class="welcome-grain"></div>
+      <div class="welcome-vignette"></div>
+      <div class="welcome-city-word" aria-hidden="true">CITY OF INFLUENCE</div>
+    </div>
+
+    <main class="welcome-shell" id="welcome-content">
+      <section class="welcome-card" aria-labelledby="welcome-title">
+        <p class="welcome-eyebrow">
+          <span class="welcome-eyebrow-line"></span>
+          Interactive Portfolio
+        </p>
+
+        <h1 class="welcome-name" id="welcome-title">
+          <span>Rae-Anne</span>
+          <span>Richardson</span>
+        </h1>
+
+        <p class="welcome-role">Sr. Marketing Strategist</p>
+
+        <div class="welcome-rule" aria-hidden="true">
+          <span></span>
+        </div>
+
+        <p class="welcome-invitation">
+          Enter to explore the <strong>City of Influence</strong>.
+        </p>
+
+        <a class="welcome-enter" id="welcomeEnter" href="portfolio.html">
+          <span class="welcome-enter-label">Enter the City</span>
+          <span class="welcome-enter-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation">
+              <path d="M5 12h13M13 6l6 6-6 6"></path>
+            </svg>
+          </span>
         </a>
 
-        <nav aria-label="Primary">
-          <ul class="nav-list">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
-
-        <div class="header-actions">
-          <button id="motionToggle" class="control-button" type="button" aria-pressed="false">Pause motion</button>
-        </div>
-      </div>
-    </header>
-
-    <main id="main-content">
-      <section class="hero" id="home">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">Interactive Portfolio</p>
-            <h1 class="hero-title" data-profile-name>[YOUR NAME]</h1>
-            <p class="hero-role" data-profile-role>Senior Marketing Strategist</p>
-            <p class="hero-quote" data-profile-quote>“Building ideas that move across cultures, channels and markets.”</p>
-            <p class="hero-support" data-profile-intro>Explore the city to discover selected work in advertising, public relations, social media and international strategy.</p>
-            <p class="hero-instruction" data-profile-instruction>Select an illuminated object to explore.</p>
-          </div>
-
-          <div class="scene-shell" id="sceneShell">
-            <picture class="scene-picture">
-              <source media="(max-width: 768px)" srcset="scene-mobile.webp" type="image/webp">
-              <source media="(max-width: 768px)" srcset="scene-mobile-fallback.jpg" type="image/jpeg">
-              <source srcset="scene-desktop.webp" type="image/webp">
-              <img
-                class="scene-image"
-                src="scene-desktop-fallback.jpg"
-                alt="A responsive cinematic nighttime city scene featuring a professional Black woman, a Portfolio board, a Shape Influence Impact billboard, an Ideas in Motion bus-shelter board, a Global Perspectives news board and an illuminated Contact box."
-              >
-            </picture>
-
-            <div class="motion-layers" aria-hidden="true">
-              <div class="scene-object layer-plane-cover">
-                <picture>
-                  <source media="(max-width: 768px)" srcset="mobile-plane-cover.webp" type="image/webp">
-                  <img src="desktop-plane-cover.webp" alt="">
-                </picture>
-              </div>
-              <div class="scene-object layer-twinkle layer-twinkle-1">
-                <picture>
-                  <source media="(max-width: 768px)" srcset="mobile-twinkle-1.webp" type="image/webp">
-                  <img src="desktop-twinkle-1.webp" alt="">
-                </picture>
-              </div>
-              <div class="scene-object layer-twinkle layer-twinkle-2">
-                <picture>
-                  <source media="(max-width: 768px)" srcset="mobile-twinkle-2.webp" type="image/webp">
-                  <img src="desktop-twinkle-2.webp" alt="">
-                </picture>
-              </div>
-              <div class="scene-object layer-twinkle layer-twinkle-3">
-                <picture>
-                  <source media="(max-width: 768px)" srcset="mobile-twinkle-3.webp" type="image/webp">
-                  <img src="desktop-twinkle-3.webp" alt="">
-                </picture>
-              </div>
-              <div class="scene-object layer-billboard">
-                <picture>
-                  <source media="(max-width: 768px)" srcset="mobile-billboard.webp" type="image/webp">
-                  <img src="desktop-billboard.webp" alt="">
-                </picture>
-              </div>
-              <div class="scene-object layer-portfolio">
-                <picture>
-                  <source media="(max-width: 768px)" srcset="mobile-portfolio.webp" type="image/webp">
-                  <img src="desktop-portfolio.webp" alt="">
-                </picture>
-              </div>
-              <div class="scene-object layer-bus">
-                <picture>
-                  <source media="(max-width: 768px)" srcset="mobile-bus.webp" type="image/webp">
-                  <img src="desktop-bus.webp" alt="">
-                </picture>
-              </div>
-              <div class="scene-object layer-news">
-                <picture>
-                  <source media="(max-width: 768px)" srcset="mobile-news.webp" type="image/webp">
-                  <img src="desktop-news.webp" alt="">
-                </picture>
-              </div>
-              <div class="scene-object layer-contact">
-                <picture>
-                  <source media="(max-width: 768px)" srcset="mobile-contact.webp" type="image/webp">
-                  <img src="desktop-contact.webp" alt="">
-                </picture>
-              </div>
-              <div class="scene-object layer-plane">
-                <picture>
-                  <source media="(max-width: 768px)" srcset="mobile-plane.webp" type="image/webp">
-                  <img src="desktop-plane.webp" alt="">
-                </picture>
-              </div>
-            </div>
-
-            <div class="scene-dim" aria-hidden="true"></div>
-
-            <div class="hotspots" aria-label="Interactive scene hotspots">
-              <button class="hotspot hotspot-portfolio" type="button" data-action="resume" data-layer="portfolio" aria-label="Open downloadable résumé PDF">
-                <span class="hotspot-label">Résumé</span>
-              </button>
-              <button class="hotspot hotspot-advertising" type="button" data-action="brands" data-layer="advertising" aria-label="Open the Brands I’ve Built page">
-                <span class="hotspot-label">Shape · Influence · Impact</span>
-              </button>
-              <button class="hotspot hotspot-ooh" type="button" data-action="case-studies" data-layer="ooh" aria-label="Open case studies page">
-                <span class="hotspot-label">Ideas in Motion</span>
-              </button>
-              <button class="hotspot hotspot-pr" type="button" data-action="articles" data-layer="pr" aria-label="Open newspaper articles page">
-                <span class="hotspot-label">Global Perspectives</span>
-              </button>
-              <button class="hotspot hotspot-contact" type="button" data-action="contact" data-layer="contact" aria-label="Open Contact information">
-                <span class="hotspot-label">Contact</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <noscript>
-          <div class="card" style="margin-top:1rem;">
-            <p class="card-copy">JavaScript is disabled, so the interactive portfolio panels are unavailable. Contact details remain available below.</p>
-          </div>
-        </noscript>
-      </section>
-
-      <section class="section" id="contact">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Contact</p>
-            <h2 class="section-title">Let’s build what moves next</h2>
-          </div>
-        </div>
-        <div class="contact-grid" id="contactGrid">
-          <article class="contact-card" id="contactDetailsCard">
-            <h3>Direct details</h3>
-            <p class="contact-meta contact-detail" id="contactEmailRow"><strong>Email:</strong> <a id="contactEmailLink" href="mailto:yourname@example.com">yourname@example.com</a></p>
-            <div class="contact-meta contact-detail" id="contactPhoneRow">
-              <strong>Phone:</strong>
-              <div class="contact-phone-list" id="contactPhoneList"></div>
-            </div>
-            <p class="contact-meta contact-detail" id="contactLinkedInRow"><strong>LinkedIn:</strong> <a id="contactLinkedIn" href="#">Profile link</a></p>
-            <p class="contact-meta contact-detail" id="contactLocationRow"><strong>Location:</strong> <span id="contactLocation"></span></p>
-            <div class="contact-actions">
-              <a class="button" id="contactMailButton" href="mailto:yourname@example.com">Start a conversation</a>
-              <a class="button-secondary" href="#home">Return to the scene</a>
-            </div>
-          </article>
-          <article class="contact-card" id="contactContextCard">
-            <div id="contactAvailabilityBlock">
-              <h3 id="contactAvailabilityTitle">Availability</h3>
-              <p class="body-copy" id="contactAvailabilityText"></p>
-            </div>
-            <div class="contact-context-block" id="contactBestSuitedBlock">
-              <h3 id="contactBestSuitedTitle">Best suited for</h3>
-              <ul class="inline-list" id="contactBestSuitedList"></ul>
-            </div>
-          </article>
-        </div>
+        <p class="welcome-note">Strategy. Story. Movement.</p>
       </section>
     </main>
 
-    <aside class="drawer" id="portfolioDrawer" aria-hidden="true">
-      <div class="drawer-backdrop" data-drawer-close></div>
-      <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" tabindex="-1">
-        <div class="drawer-header">
-          <div>
-            <p class="eyebrow">Interactive panel</p>
-            <h2 class="drawer-title" id="drawerTitle">Panel title</h2>
-            <p class="drawer-copy" id="drawerStatement">Panel summary</p>
-          </div>
-          <button class="drawer-close" type="button" data-drawer-close aria-label="Close panel">✕</button>
-        </div>
-        <div class="drawer-body" id="drawerBody"></div>
-      </div>
-    </aside>
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <span class="footer-credit">City of Influence is an Interactive Portfolio created by Rae-Anne Richardson</span>
-      <a class="button footer-login-button" href="admin.html">Login</a>
+    <div class="welcome-coordinate welcome-coordinate-top" aria-hidden="true">
+      <span>10.6918° N</span>
+      <span>61.2225° W</span>
     </div>
-  </footer>
+    <div class="welcome-coordinate welcome-coordinate-bottom" aria-hidden="true">
+      <span>Shape</span>
+      <span>Influence</span>
+      <span>Impact</span>
+    </div>
 
-    <script src="content.js?v=20260620-3"></script>
-    <script src="app.js?v=20260620-5"></script>
+    <div class="welcome-transition" aria-hidden="true">
+      <div class="welcome-transition-core"></div>
+    </div>
+
+    <script>
+      (() => {
+        const page = document.body;
+        const enterLink = document.getElementById("welcomeEnter");
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        const goToPortfolio = () => {
+          window.location.assign("portfolio.html");
+        };
+
+        enterLink.addEventListener("click", (event) => {
+          if (reducedMotion.matches) return;
+
+          event.preventDefault();
+          if (page.classList.contains("is-entering")) return;
+
+          page.classList.add("is-entering");
+          enterLink.setAttribute("aria-disabled", "true");
+          window.setTimeout(goToPortfolio, 1080);
+        });
+
+        if (!reducedMotion.matches && window.matchMedia("(pointer: fine)").matches) {
+          let frame = null;
+
+          window.addEventListener("pointermove", (event) => {
+            if (frame) window.cancelAnimationFrame(frame);
+
+            frame = window.requestAnimationFrame(() => {
+              const x = (event.clientX / window.innerWidth - 0.5) * 2;
+              const y = (event.clientY / window.innerHeight - 0.5) * 2;
+              page.style.setProperty("--welcome-pointer-x", x.toFixed(3));
+              page.style.setProperty("--welcome-pointer-y", y.toFixed(3));
+            });
+          });
+        }
+      })();
+    </script>
   </body>
 </html>

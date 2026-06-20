@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="City of Influence — an interactive motion portfolio for a senior marketing strategist.">
+    <title>Interactive Portfolio · City of Influence</title>
+    <link rel="stylesheet" href="styles.css?v=20260620-6">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#home" aria-label="Go to home">
+          <span class="brand-mark">Interactive Portfolio</span>
+          <span class="brand-name">City of Influence</span>
+        </a>
+
+        <nav aria-label="Primary">
+          <ul class="nav-list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <button id="motionToggle" class="control-button" type="button" aria-pressed="false">Pause motion</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" id="home">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Interactive Portfolio</p>
+            <h1 class="hero-title" data-profile-name>[YOUR NAME]</h1>
+            <p class="hero-role" data-profile-role>Senior Marketing Strategist</p>
+            <p class="hero-quote" data-profile-quote>“Building ideas that move across cultures, channels and markets.”</p>
+            <p class="hero-support" data-profile-intro>Explore the city to discover selected work in advertising, public relations, social media and international strategy.</p>
+            <p class="hero-instruction" data-profile-instruction>Select an illuminated object to explore.</p>
+          </div>
+
+          <div class="scene-shell" id="sceneShell">
+            <picture class="scene-picture">
+              <source media="(max-width: 768px)" srcset="scene-mobile.webp" type="image/webp">
+              <source media="(max-width: 768px)" srcset="scene-mobile-fallback.jpg" type="image/jpeg">
+              <source srcset="scene-desktop.webp" type="image/webp">
+              <img
+                class="scene-image"
+                src="scene-desktop-fallback.jpg"
+                alt="A responsive cinematic nighttime city scene featuring a professional Black woman, a Portfolio board, a Shape Influence Impact billboard, an Ideas in Motion bus-shelter board, a Global Perspectives news board and an illuminated Contact box."
+              >
+            </picture>
+
+            <div class="motion-layers" aria-hidden="true">
+              <div class="scene-object layer-plane-cover">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-plane-cover.webp" type="image/webp">
+                  <img src="desktop-plane-cover.webp" alt="">
+                </picture>
+              </div>
+              <div class="scene-object layer-twinkle layer-twinkle-1">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-twinkle-1.webp" type="image/webp">
+                  <img src="desktop-twinkle-1.webp" alt="">
+                </picture>
+              </div>
+              <div class="scene-object layer-twinkle layer-twinkle-2">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-twinkle-2.webp" type="image/webp">
+                  <img src="desktop-twinkle-2.webp" alt="">
+                </picture>
+              </div>
+              <div class="scene-object layer-twinkle layer-twinkle-3">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-twinkle-3.webp" type="image/webp">
+                  <img src="desktop-twinkle-3.webp" alt="">
+                </picture>
+              </div>
+              <div class="scene-object layer-billboard">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-billboard.webp" type="image/webp">
+                  <img src="desktop-billboard.webp" alt="">
+                </picture>
+              </div>
+              <div class="scene-object layer-portfolio">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-portfolio.webp" type="image/webp">
+                  <img src="desktop-portfolio.webp" alt="">
+                </picture>
+              </div>
+              <div class="scene-object layer-bus">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-bus.webp" type="image/webp">
+                  <img src="desktop-bus.webp" alt="">
+                </picture>
+              </div>
+              <div class="scene-object layer-news">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-news.webp" type="image/webp">
+                  <img src="desktop-news.webp" alt="">
+                </picture>
+              </div>
+              <div class="scene-object layer-contact">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-contact.webp" type="image/webp">
+                  <img src="desktop-contact.webp" alt="">
+                </picture>
+              </div>
+              <div class="scene-object layer-plane">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="mobile-plane.webp" type="image/webp">
+                  <img src="desktop-plane.webp" alt="">
+                </picture>
+              </div>
+            </div>
+
+            <div class="scene-dim" aria-hidden="true"></div>
+
+            <div class="hotspots" aria-label="Interactive scene hotspots">
+              <button class="hotspot hotspot-portfolio" type="button" data-action="resume" data-layer="portfolio" aria-label="Open downloadable résumé PDF">
+                <span class="hotspot-label">Résumé</span>
+              </button>
+              <button class="hotspot hotspot-advertising" type="button" data-action="brands" data-layer="advertising" aria-label="Open the Brands I’ve Built page">
+                <span class="hotspot-label">Shape · Influence · Impact</span>
+              </button>
+              <button class="hotspot hotspot-ooh" type="button" data-action="case-studies" data-layer="ooh" aria-label="Open case studies page">
+                <span class="hotspot-label">Ideas in Motion</span>
+              </button>
+              <button class="hotspot hotspot-pr" type="button" data-action="articles" data-layer="pr" aria-label="Open newspaper articles page">
+                <span class="hotspot-label">Global Perspectives</span>
+              </button>
+              <button class="hotspot hotspot-contact" type="button" data-action="contact" data-layer="contact" aria-label="Open Contact information">
+                <span class="hotspot-label">Contact</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <noscript>
+          <div class="card" style="margin-top:1rem;">
+            <p class="card-copy">JavaScript is disabled, so the interactive portfolio panels are unavailable. Contact details remain available below.</p>
+          </div>
+        </noscript>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2 class="section-title">Let’s build what moves next</h2>
+          </div>
+        </div>
+        <div class="contact-grid" id="contactGrid">
+          <article class="contact-card" id="contactDetailsCard">
+            <h3>Direct details</h3>
+            <p class="contact-meta contact-detail" id="contactEmailRow"><strong>Email:</strong> <a id="contactEmailLink" href="mailto:yourname@example.com">yourname@example.com</a></p>
+            <div class="contact-meta contact-detail" id="contactPhoneRow">
+              <strong>Phone:</strong>
+              <div class="contact-phone-list" id="contactPhoneList"></div>
+            </div>
+            <p class="contact-meta contact-detail" id="contactLinkedInRow"><strong>LinkedIn:</strong> <a id="contactLinkedIn" href="#">Profile link</a></p>
+            <p class="contact-meta contact-detail" id="contactLocationRow"><strong>Location:</strong> <span id="contactLocation"></span></p>
+            <div class="contact-actions">
+              <a class="button" id="contactMailButton" href="mailto:yourname@example.com">Start a conversation</a>
+              <a class="button-secondary" href="#home">Return to the scene</a>
+            </div>
+          </article>
+          <article class="contact-card" id="contactContextCard">
+            <div id="contactAvailabilityBlock">
+              <h3 id="contactAvailabilityTitle">Availability</h3>
+              <p class="body-copy" id="contactAvailabilityText"></p>
+            </div>
+            <div class="contact-context-block" id="contactBestSuitedBlock">
+              <h3 id="contactBestSuitedTitle">Best suited for</h3>
+              <ul class="inline-list" id="contactBestSuitedList"></ul>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <aside class="drawer" id="portfolioDrawer" aria-hidden="true">
+      <div class="drawer-backdrop" data-drawer-close></div>
+      <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" tabindex="-1">
+        <div class="drawer-header">
+          <div>
+            <p class="eyebrow">Interactive panel</p>
+            <h2 class="drawer-title" id="drawerTitle">Panel title</h2>
+            <p class="drawer-copy" id="drawerStatement">Panel summary</p>
+          </div>
+          <button class="drawer-close" type="button" data-drawer-close aria-label="Close panel">✕</button>
+        </div>
+        <div class="drawer-body" id="drawerBody"></div>
+      </div>
+    </aside>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-credit">City of Influence is an Interactive Portfolio created by Rae-Anne Richardson</span>
+      <a class="button footer-login-button" href="admin.html">Login</a>
+    </div>
+  </footer>
+
+    <script src="content.js?v=20260620-3"></script>
+    <script src="app.js?v=20260620-5"></script>
+  </body>
+</html>
