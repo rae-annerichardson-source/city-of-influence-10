@@ -1191,3 +1191,50 @@ button {
   .brand-page-card { grid-template-columns: 1fr; }
   .brand-page-image { min-height: 240px; }
 }
+
+
+/* City of Influence footer credit and update-portal login */
+.site-footer {
+  border-top: 1px solid var(--line);
+  background: rgba(244, 249, 255, 0.92);
+}
+.footer-inner {
+  width: var(--container);
+  margin: 0 auto;
+  padding: 0.9rem 0;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+.footer-credit {
+  line-height: 1.45;
+}
+.footer-login-button {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 0.55rem 1.15rem;
+}
+
+@media (max-width: 720px) {
+  .footer-inner {
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 0 1.25rem;
+  }
+  .footer-credit {
+    max-width: calc(100% - 5.5rem);
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-inner {
+    flex-direction: column;
+  }
+  .footer-credit {
+    max-width: none;
+  }
+}
