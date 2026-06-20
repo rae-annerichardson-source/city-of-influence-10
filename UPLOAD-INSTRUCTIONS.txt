@@ -1,0 +1,30 @@
+CITY OF INFLUENCE PUBLISH FIX
+Version: 20260620-3
+
+WHY THIS FIX IS NEEDED
+- The previous public pages could use browser localStorage instead of the GitHub-published content.
+- Browsers may also cache a file named content.js.
+- The exported backup included one large image embedded directly inside the JSON.
+
+WHAT THIS PACKAGE CHANGES
+1. Public pages always load the GitHub-published content.
+2. The admin page can still use local browser storage while editing.
+3. Every HTML page uses a versioned content.js URL to force browsers to fetch the new file.
+4. The embedded brand image has been extracted into a normal image file.
+
+UPLOAD ALL FILES IN THIS FOLDER TO THE ROOT OF THE GITHUB REPOSITORY.
+Allow GitHub to replace files with the same names.
+
+IMPORTANT CONTENT NOTE
+The supplied JSON backup contains:
+- Updated profile name
+- Updated résumé link
+- Updated contact information
+- One uploaded image in Brand 3
+
+The supplied backup still contains placeholder wording for:
+- All three brand entries
+- Both case studies
+- Both articles
+
+Only information present in the exported JSON can be published.
