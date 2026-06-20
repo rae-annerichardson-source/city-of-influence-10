@@ -272,9 +272,6 @@
     }
   }
 
-  hotspotButtons.forEach((button) => {
-    button.addEventListener('click', () => handleAction(button));
-  });
 
   closeButtons.forEach((button) => button.addEventListener('click', closeDrawer));
 
@@ -301,22 +298,78 @@
     }
   });
 
-  document.querySelectorAll('.hotspot').forEach((button) => {
+  const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)');
+
+  function restoreSceneCategory() {
+    sceneShell.classList.remove('scene-hovering');
+    hotspotButtons.forEach((button) => button.classList.remove('is-active'));
+
+    if (activeCategory === 'brands') {
+      sceneShell.dataset.activeCategory = 'advertising';
+    } else if (activeCategory) {
+      sceneShell.dataset.activeCategory = activeCategory;
+    } else {
+      delete sceneShell.dataset.activeCategory;
+    }
+  }
+
+  hotspotButtons.forEach((button) => {
     const layerCategory = button.dataset.layer;
+    let navigationTimer = null;
+
     const activate = () => {
       sceneShell.classList.add('scene-hovering');
       sceneShell.dataset.activeCategory = layerCategory;
+      button.classList.add('is-active');
     };
+
     const deactivate = () => {
-      sceneShell.classList.remove('scene-hovering');
-      if (activeCategory === 'brands') sceneShell.dataset.activeCategory = 'advertising';
-      else if (activeCategory) sceneShell.dataset.activeCategory = activeCategory;
-      else delete sceneShell.dataset.activeCategory;
+      if (navigationTimer) return;
+      restoreSceneCategory();
     };
+
     button.addEventListener('mouseenter', activate);
     button.addEventListener('focus', activate);
     button.addEventListener('mouseleave', deactivate);
     button.addEventListener('blur', deactivate);
+
+    button.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'touch' || event.pointerType === 'pen') {
+        activate();
+      }
+    });
+
+    button.addEventListener('pointercancel', deactivate);
+
+    button.addEventListener('click', (event) => {
+      const action = button.dataset.action;
+      const touchLike = coarsePointer.matches;
+
+      if (!touchLike) {
+        handleAction(button);
+        return;
+      }
+
+      activate();
+
+      // The résumé opens immediately to preserve the browser's user-gesture permission.
+      if (action === 'resume') {
+        handleAction(button);
+        window.setTimeout(() => {
+          navigationTimer = null;
+          restoreSceneCategory();
+        }, 420);
+        return;
+      }
+
+      event.preventDefault();
+      if (navigationTimer) window.clearTimeout(navigationTimer);
+
+      // Briefly hold the illuminated state so mobile visitors can see what they selected.
+      navigationTimer = window.setTimeout(() => {
+        handleAction(button);
+      }, 260);
+    });
   });
 
   function syncMotionButton(paused) {
