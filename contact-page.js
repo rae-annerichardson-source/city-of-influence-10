@@ -1,5 +1,8 @@
 (function () {
-  const content = window.getCityContent ? window.getCityContent() : window.CityContentDefaults;
+  const content = window.getCityContent
+    ? window.getCityContent()
+    : window.CityContentDefaults;
+
   if (!content) return;
 
   const DEFAULT_BEST_SUITED = [
@@ -10,14 +13,32 @@
     'Senior-level advisory or consulting engagements'
   ];
 
+  const DEFAULT_CONTACT_PAGE = {
+    eyebrow: 'Contact',
+    title: 'Start a conversation',
+    intro: 'Connect with Rae-Anne Richardson for marketing strategy, communications leadership, consulting, speaking and selected collaborations.',
+    returnLabel: 'Return to the city',
+    detailsTag: 'Direct details',
+    detailsTitle: 'Get in touch',
+    emailLabel: 'Email',
+    phoneLabel: 'Phone',
+    linkedinLabel: 'LinkedIn',
+    locationLabel: 'Location',
+    primaryButtonLabel: 'Start a conversation',
+    secondaryButtonLabel: 'Explore the portfolio',
+    contextTag: 'Working together',
+    emptyState: 'Public contact details are currently unavailable.'
+  };
+
   function escapeHtml(value) {
     return String(value || '').replace(/[&<>'"]/g, (char) => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      "'": '&#39;',
-      '"': '&quot;'
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
     }[char]));
+  }
+
+  function setText(id, value) {
+    const node = document.getElementById(id);
+    if (node) node.textContent = value || '';
   }
 
   function normaliseContact(rawContact) {
@@ -26,9 +47,7 @@
     const legacyPhone = String(contact.phone || '').trim();
     const sourcePhones = Array.isArray(contact.phones)
       ? contact.phones
-      : (legacyPhone
-          ? [{ id: 'phone-1', label: 'Phone', number: legacyPhone, visible: true }]
-          : []);
+      : (legacyPhone ? [{ id: 'phone-1', label: 'Phone', number: legacyPhone, visible: true }] : []);
 
     return {
       email: String(contact.email || '').trim(),
@@ -64,6 +83,22 @@
   }
 
   const contact = normaliseContact(content.contact);
+  const pageCopy = Object.assign({}, DEFAULT_CONTACT_PAGE, content.contactPage || {});
+
+  setText('contactPageEyebrow', pageCopy.eyebrow);
+  setText('contactPageTitle', pageCopy.title);
+  setText('contactPageIntro', pageCopy.intro);
+  setText('contactReturnButton', pageCopy.returnLabel);
+  setText('contactDetailsTag', pageCopy.detailsTag);
+  setText('contactDetailsHeading', pageCopy.detailsTitle);
+  setText('contactEmailLabel', `${pageCopy.emailLabel}:`);
+  setText('contactPhoneLabel', `${pageCopy.phoneLabel}:`);
+  setText('contactLinkedInLabel', `${pageCopy.linkedinLabel}:`);
+  setText('contactLocationLabel', `${pageCopy.locationLabel}:`);
+  setText('contactMailButton', pageCopy.primaryButtonLabel);
+  setText('contactPortfolioButton', pageCopy.secondaryButtonLabel);
+  setText('contactContextTag', pageCopy.contextTag);
+  setText('contactEmptyState', pageCopy.emptyState);
 
   const emailLink = document.getElementById('contactEmailLink');
   const emailRow = document.getElementById('contactEmailRow');
@@ -102,12 +137,7 @@
       const href = phoneHref(item.number);
       const label = escapeHtml(item.label);
       const number = escapeHtml(item.number);
-      return `
-        <span class="contact-phone-item">
-          <span class="contact-phone-label">${label}:</span>
-          ${href ? `<a href="${href}">${number}</a>` : number}
-        </span>
-      `;
+      return `<span class="contact-phone-item"><span class="contact-phone-label">${label}:</span>${href ? `<a href="${href}">${number}</a>` : number}</span>`;
     }).join('');
   }
   setVisible(phoneRow, visiblePhones.length > 0);
@@ -125,40 +155,19 @@
   if (location) location.textContent = contact.location;
   setVisible(locationRow, showLocation);
 
-  const showAvailability = Boolean(
-    contact.visibility.availability &&
-    (contact.availabilityTitle || contact.availabilityText)
-  );
+  const showAvailability = Boolean(contact.visibility.availability && (contact.availabilityTitle || contact.availabilityText));
   if (availabilityTitle) availabilityTitle.textContent = contact.availabilityTitle;
   if (availabilityText) availabilityText.textContent = contact.availabilityText;
   setVisible(availabilityBlock, showAvailability);
 
-  const bestSuitedItems = contact.bestSuitedText
-    .split(/\r?\n/)
-    .map((item) => item.trim())
-    .filter(Boolean);
-
-  const showBestSuited = Boolean(
-    contact.visibility.bestSuited &&
-    bestSuitedItems.length
-  );
-
+  const bestSuitedItems = contact.bestSuitedText.split(/\r?\n/).map((item) => item.trim()).filter(Boolean);
+  const showBestSuited = Boolean(contact.visibility.bestSuited && bestSuitedItems.length);
   if (bestSuitedTitle) bestSuitedTitle.textContent = contact.bestSuitedTitle;
-  if (bestSuitedList) {
-    bestSuitedList.innerHTML = bestSuitedItems
-      .map((item) => `<li>${escapeHtml(item)}</li>`)
-      .join('');
-  }
+  if (bestSuitedList) bestSuitedList.innerHTML = bestSuitedItems.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
   setVisible(bestSuitedBlock, showBestSuited);
 
-  const showDetailsCard =
-    showEmail ||
-    visiblePhones.length > 0 ||
-    showLinkedIn ||
-    showLocation;
-
+  const showDetailsCard = showEmail || visiblePhones.length > 0 || showLinkedIn || showLocation;
   const showContextCard = showAvailability || showBestSuited;
-
   setVisible(detailsCard, showDetailsCard);
   setVisible(contextCard, showContextCard);
   setVisible(emptyState, !showDetailsCard && !showContextCard);

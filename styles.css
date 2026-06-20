@@ -2199,3 +2199,274 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================================
+   EDITABLE CONTACT COPY, CASE GALLERIES & IMAGE-LED BRANDS
+   ========================================================= */
+
+.case-gallery-editor {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.case-gallery-editor-head,
+.case-image-editor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.case-gallery-editor-head { margin-bottom: 1rem; }
+.case-gallery-editor-head h4,
+.case-image-editor-head h4 { margin: 0; }
+.case-image-editor-list { display: grid; gap: 1rem; }
+
+.case-image-editor {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.72);
+}
+
+.case-image-editor-head { margin-bottom: 0.85rem; }
+.case-image-preview {
+  width: min(100%, 360px);
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+/* Brands gallery: images only */
+.brand-image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2vw, 1.4rem);
+  padding-bottom: 5rem;
+}
+
+.brand-image-tile {
+  position: relative;
+  display: block;
+  min-width: 0;
+  border-radius: var(--radius-xl);
+  outline: none;
+  isolation: isolate;
+}
+
+.brand-image-tile::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  background: linear-gradient(135deg, rgba(94,176,255,0.82), rgba(255,103,190,0.72));
+  filter: blur(16px);
+  transition: opacity 260ms ease;
+}
+
+.brand-image-frame {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 24% 20%, rgba(110,184,255,0.16), transparent 38%),
+    linear-gradient(145deg, rgba(255,255,255,0.94), rgba(230,242,255,0.9));
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 280ms cubic-bezier(0.2, 0.75, 0.2, 1),
+    filter 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.brand-image-frame img {
+  width: 100%;
+  height: 100%;
+  padding: clamp(0.75rem, 2.4vw, 1.6rem);
+  object-fit: contain;
+  transition:
+    transform 320ms cubic-bezier(0.2, 0.75, 0.2, 1),
+    filter 280ms ease;
+}
+
+.brand-image-tile:hover::before,
+.brand-image-tile:focus-visible::before { opacity: 0.75; }
+
+.brand-image-tile:hover .brand-image-frame,
+.brand-image-tile:focus-visible .brand-image-frame {
+  transform: translateY(-5px) scale(1.012);
+  border-color: rgba(81,157,232,0.5);
+  box-shadow:
+    0 24px 70px rgba(27,70,125,0.2),
+    0 0 0 4px rgba(91,174,255,0.12);
+  filter: brightness(1.08) saturate(1.12);
+}
+
+.brand-image-tile:hover img,
+.brand-image-tile:focus-visible img {
+  transform: scale(1.045);
+  filter: drop-shadow(0 14px 24px rgba(28,74,128,0.18));
+}
+
+/* Brand detail page */
+.brand-detail-hero { max-width: 900px; }
+
+.brand-detail-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(1.2rem, 3vw, 2.2rem);
+  align-items: start;
+}
+
+.brand-detail-visual {
+  position: sticky;
+  top: 104px;
+  display: grid;
+  place-items: center;
+  min-height: 430px;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(110,184,255,0.18), transparent 36%),
+    linear-gradient(145deg, rgba(255,255,255,0.96), rgba(232,244,255,0.92));
+  box-shadow: var(--shadow-soft);
+}
+
+.brand-detail-visual img {
+  width: 100%;
+  max-height: 560px;
+  object-fit: contain;
+}
+
+.brand-breakdown { display: grid; gap: 1rem; }
+.brand-breakdown-section {
+  padding: clamp(1.25rem, 3vw, 1.8rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.78);
+  box-shadow: var(--shadow-soft);
+}
+
+.brand-breakdown-section span {
+  display: block;
+  margin-bottom: 0.65rem;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.brand-breakdown-section p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* Case-study gallery */
+.case-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-flow: dense;
+  gap: 1rem;
+  margin: 0 0 1.25rem;
+}
+
+.case-gallery-item {
+  position: relative;
+  min-height: 240px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background: rgba(225,239,252,0.76);
+  box-shadow: var(--shadow-soft);
+}
+
+.case-gallery-item.is-featured {
+  grid-column: 1 / -1;
+  min-height: min(62vw, 620px);
+}
+
+.case-gallery-count-1 .case-gallery-item.is-featured {
+  min-height: min(64vw, 680px);
+}
+
+.case-gallery-item img {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  transition:
+    transform 280ms cubic-bezier(0.2, 0.75, 0.2, 1),
+    filter 280ms ease;
+}
+
+a.case-gallery-item:hover img,
+a.case-gallery-item:focus-visible img {
+  transform: scale(1.025);
+  filter: brightness(1.06) saturate(1.08);
+}
+
+a.case-gallery-item:focus-visible {
+  outline: none;
+  box-shadow: var(--focus), var(--shadow-soft);
+}
+
+.case-gallery-link-mark {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(5,17,31,0.78);
+  backdrop-filter: blur(12px);
+  font-size: 1.1rem;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.2);
+}
+
+.case-section-stack-full {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 920px) {
+  .brand-image-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .brand-detail-layout { grid-template-columns: 1fr; }
+  .brand-detail-visual { position: static; min-height: 320px; }
+}
+
+@media (max-width: 680px) {
+  .case-gallery-editor-head,
+  .case-image-editor-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .brand-image-grid,
+  .case-gallery,
+  .case-section-stack-full { grid-template-columns: 1fr; }
+
+  .case-gallery-item,
+  .case-gallery-item.is-featured,
+  .case-gallery-count-1 .case-gallery-item.is-featured {
+    grid-column: auto;
+    min-height: 260px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-image-frame,
+  .brand-image-frame img,
+  .case-gallery-item img { transition: none; }
+}

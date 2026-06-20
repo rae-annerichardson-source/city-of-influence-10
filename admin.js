@@ -7,8 +7,67 @@
     'Senior-level advisory or consulting engagements'
   ];
 
+
+  const DEFAULT_CONTACT_PAGE = {
+    eyebrow: 'Contact',
+    title: 'Start a conversation',
+    intro: 'Connect with Rae-Anne Richardson for marketing strategy, communications leadership, consulting, speaking and selected collaborations.',
+    returnLabel: 'Return to the city',
+    detailsTag: 'Direct details',
+    detailsTitle: 'Get in touch',
+    emailLabel: 'Email',
+    phoneLabel: 'Phone',
+    linkedinLabel: 'LinkedIn',
+    locationLabel: 'Location',
+    primaryButtonLabel: 'Start a conversation',
+    secondaryButtonLabel: 'Explore the portfolio',
+    contextTag: 'Working together',
+    emptyState: 'Public contact details are currently unavailable.'
+  };
+
+  const MAX_CASE_IMAGES = 5;
+
   function clone(value) {
     return JSON.parse(JSON.stringify(value));
+  }
+
+  function normaliseCaseStudy(item, caseIndex) {
+    const value = item || {};
+    if (!Array.isArray(value.images)) {
+      value.images = [];
+      if (value.mediaType !== 'video' && value.mediaUrl) {
+        value.images.push({
+          id: `case-image-${caseIndex + 1}-1`,
+          image: String(value.mediaUrl),
+          link: '',
+          alt: String(value.title || 'Case study image')
+        });
+      }
+    }
+
+    value.images = value.images.slice(0, MAX_CASE_IMAGES).map((image, imageIndex) => ({
+      id: image.id || `case-image-${caseIndex + 1}-${imageIndex + 1}`,
+      image: String(image.image || image.url || ''),
+      link: String(image.link || ''),
+      alt: String(image.alt || value.title || 'Case study image')
+    }));
+
+    syncLegacyCaseStudy(value);
+    return value;
+  }
+
+  function syncLegacyCaseStudy(item) {
+    const firstImage = Array.isArray(item.images)
+      ? item.images.find((image) => image && image.image)
+      : null;
+
+    if (firstImage) {
+      item.mediaType = 'image';
+      item.mediaUrl = firstImage.image;
+    } else if (item.mediaType !== 'video') {
+      item.mediaType = 'none';
+      item.mediaUrl = '';
+    }
   }
 
   function normaliseContent(source) {
@@ -16,9 +75,13 @@
     if (!value.profile) value.profile = {};
     if (!value.resume) value.resume = {};
     if (!value.contact) value.contact = {};
+    if (!value.contactPage) value.contactPage = {};
     if (!Array.isArray(value.brands)) value.brands = [];
     if (!Array.isArray(value.caseStudies)) value.caseStudies = [];
     if (!Array.isArray(value.articles)) value.articles = [];
+
+    value.contactPage = Object.assign({}, DEFAULT_CONTACT_PAGE, value.contactPage || {});
+    value.caseStudies = value.caseStudies.map(normaliseCaseStudy);
 
     const contact = value.contact;
     if (!Array.isArray(contact.phones)) {
@@ -141,6 +204,19 @@
       return;
     }
 
+    const caseImageField = event.target.closest('[data-case-index][data-case-image-index][data-case-image-field]');
+    if (caseImageField) {
+      const caseIndex = Number(caseImageField.dataset.caseIndex);
+      const imageIndex = Number(caseImageField.dataset.caseImageIndex);
+      const field = caseImageField.dataset.caseImageField;
+      const caseStudy = content.caseStudies[caseIndex];
+      if (!caseStudy || !caseStudy.images[imageIndex]) return;
+      caseStudy.images[imageIndex][field] = caseImageField.value;
+      syncLegacyCaseStudy(caseStudy);
+      markDirty();
+      return;
+    }
+
     const itemField = event.target.closest('[data-collection][data-index][data-field]');
     if (itemField) {
       const collection = itemField.dataset.collection;
@@ -215,13 +291,44 @@
     `).join('') : '<div class="empty-state">No brands added. Select “Add brand” to begin.</div>';
   }
 
+  function caseImageMarkup(caseStudy, caseIndex, image, imageIndex) {
+    return `
+      <article class="case-image-editor">
+        <div class="case-image-editor-head">
+          <h4>Gallery image ${imageIndex + 1}</h4>
+          <button class="danger-button" type="button" data-delete-case-image data-case-index="${caseIndex}" data-case-image-index="${imageIndex}">Remove image</button>
+        </div>
+        <div class="form-grid">
+          <div class="form-field full">
+            <label>Image URL</label>
+            <input data-case-index="${caseIndex}" data-case-image-index="${imageIndex}" data-case-image-field="image" value="${escapeHtml(image.image)}" placeholder="Paste an image URL or upload a file below">
+            <input type="file" accept="image/jpeg,image/png,image/webp,image/gif" data-case-image-upload data-case-index="${caseIndex}" data-case-image-index="${imageIndex}">
+            <span class="file-note">JPG, PNG, WebP or GIF. Large images are compressed before saving.</span>
+            ${image.image ? `<img class="image-preview case-image-preview" src="${escapeHtml(image.image)}" alt="${escapeHtml(image.alt || caseStudy.title || 'Case study image')}">` : ''}
+          </div>
+          <div class="form-field">
+            <label>Optional image link</label>
+            <input type="url" data-case-index="${caseIndex}" data-case-image-index="${imageIndex}" data-case-image-field="link" value="${escapeHtml(image.link)}" placeholder="https://...">
+            <span class="file-note">When supplied, the image becomes clickable on the public case-study page.</span>
+          </div>
+          <div class="form-field">
+            <label>Accessible image description</label>
+            <input data-case-index="${caseIndex}" data-case-image-index="${imageIndex}" data-case-image-field="alt" value="${escapeHtml(image.alt)}" placeholder="Describe what the image shows">
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
   function renderCases() {
     const root = document.getElementById('casesEditor');
-    root.innerHTML = content.caseStudies.length ? content.caseStudies.map((item, index) => `
+    root.innerHTML = content.caseStudies.length ? content.caseStudies.map((item, index) => {
+      const images = Array.isArray(item.images) ? item.images : [];
+      return `
       <article class="item-editor">
         <div class="item-editor-head">
           <h3 class="item-editor-title">${escapeHtml(item.title || `Case Study ${index + 1}`)}</h3>
-          <button class="danger-button" type="button" data-delete="caseStudies" data-index="${index}">Remove</button>
+          <button class="danger-button" type="button" data-delete="caseStudies" data-index="${index}">Remove case study</button>
         </div>
         <div class="form-grid">
           <div class="form-field full"><label>Title</label><input data-collection="caseStudies" data-index="${index}" data-field="title" value="${escapeHtml(item.title)}"></div>
@@ -235,12 +342,19 @@
           <div class="form-field full"><label>Execution</label><textarea data-collection="caseStudies" data-index="${index}" data-field="execution">${escapeHtml(item.execution)}</textarea></div>
           <div class="form-field full"><label>Results</label><textarea data-collection="caseStudies" data-index="${index}" data-field="results">${escapeHtml(item.results)}</textarea></div>
           <div class="form-field full"><label>My contribution</label><textarea data-collection="caseStudies" data-index="${index}" data-field="contribution">${escapeHtml(item.contribution)}</textarea></div>
-          <div class="form-field"><label>Media format</label><select data-collection="caseStudies" data-index="${index}" data-field="mediaType"><option value="image" ${item.mediaType === 'image' ? 'selected' : ''}>Image</option><option value="video" ${item.mediaType === 'video' ? 'selected' : ''}>Direct video URL</option><option value="none" ${item.mediaType === 'none' ? 'selected' : ''}>No media</option></select></div>
-          <div class="form-field"><label>Supporting external link</label><input type="url" data-collection="caseStudies" data-index="${index}" data-field="externalLink" value="${escapeHtml(item.externalLink)}" placeholder="Optional campaign, video or project link"></div>
-          ${imageFieldMarkup('caseStudies', index, 'mediaUrl', item.mediaUrl, 'Cover image or direct video URL')}
+          <div class="form-field full"><label>Optional project link</label><input type="url" data-collection="caseStudies" data-index="${index}" data-field="externalLink" value="${escapeHtml(item.externalLink)}" placeholder="Campaign site, article, video or related project"><span class="file-note">Leave blank when the case study does not need an external supporting link.</span></div>
         </div>
-      </article>
-    `).join('') : '<div class="empty-state">No case studies added. Select “Add case study” to begin.</div>';
+        <section class="case-gallery-editor" aria-label="Case study image gallery">
+          <div class="case-gallery-editor-head">
+            <div><h4>Image gallery</h4><p class="file-note">${images.length} of ${MAX_CASE_IMAGES} images added.</p></div>
+            <button class="button-secondary" type="button" data-add-case-image data-case-index="${index}" ${images.length >= MAX_CASE_IMAGES ? 'disabled' : ''}>${images.length >= MAX_CASE_IMAGES ? 'Maximum 5 images' : 'Add gallery image'}</button>
+          </div>
+          <div class="case-image-editor-list">
+            ${images.length ? images.map((image, imageIndex) => caseImageMarkup(item, index, image, imageIndex)).join('') : '<div class="empty-state">No gallery images added. Add up to five images.</div>'}
+          </div>
+        </section>
+      </article>`;
+    }).join('') : '<div class="empty-state">No case studies added. Select “Add case study” to begin.</div>';
   }
 
   function renderArticles() {
@@ -309,6 +423,28 @@
     }
   });
 
+  document.addEventListener('change', async (event) => {
+    const upload = event.target.closest('[data-case-image-upload]');
+    if (!upload || !upload.files || !upload.files[0]) return;
+
+    try {
+      status.textContent = 'Processing case-study image…';
+      const dataUrl = await compressImage(upload.files[0]);
+      const caseIndex = Number(upload.dataset.caseIndex);
+      const imageIndex = Number(upload.dataset.caseImageIndex);
+      const caseStudy = content.caseStudies[caseIndex];
+      if (!caseStudy || !caseStudy.images[imageIndex]) return;
+      caseStudy.images[imageIndex].image = dataUrl;
+      if (!caseStudy.images[imageIndex].alt) caseStudy.images[imageIndex].alt = caseStudy.title || 'Case study image';
+      syncLegacyCaseStudy(caseStudy);
+      markDirty('Case-study image added — save changes');
+      renderCases();
+    } catch (error) {
+      console.error(error);
+      status.textContent = 'Unable to process that case-study image';
+    }
+  });
+
   function compressImage(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -357,6 +493,37 @@
       return;
     }
 
+    const addCaseImageButton = event.target.closest('[data-add-case-image]');
+    if (addCaseImageButton) {
+      const caseIndex = Number(addCaseImageButton.dataset.caseIndex);
+      const caseStudy = content.caseStudies[caseIndex];
+      if (!caseStudy) return;
+      if (!Array.isArray(caseStudy.images)) caseStudy.images = [];
+      if (caseStudy.images.length >= MAX_CASE_IMAGES) {
+        status.textContent = 'A case study can contain a maximum of five images.';
+        return;
+      }
+      caseStudy.images.push({ id: `case-image-${Date.now()}`, image: '', link: '', alt: caseStudy.title || 'Case study image' });
+      syncLegacyCaseStudy(caseStudy);
+      markDirty();
+      renderCases();
+      return;
+    }
+
+    const deleteCaseImageButton = event.target.closest('[data-delete-case-image]');
+    if (deleteCaseImageButton) {
+      const caseIndex = Number(deleteCaseImageButton.dataset.caseIndex);
+      const imageIndex = Number(deleteCaseImageButton.dataset.caseImageIndex);
+      const caseStudy = content.caseStudies[caseIndex];
+      if (caseStudy && window.confirm('Remove this gallery image?')) {
+        caseStudy.images.splice(imageIndex, 1);
+        syncLegacyCaseStudy(caseStudy);
+        markDirty();
+        renderCases();
+      }
+      return;
+    }
+
     const addButton = event.target.closest('[data-add]');
     if (addButton) {
       const collection = addButton.dataset.add;
@@ -364,7 +531,7 @@
         content.brands.push({ id: `brand-${Date.now()}`, name: 'New Brand', description: '', industry: '', markets: '', role: '', approach: '', outcome: '', externalLink: '', image: '' });
       } else if (collection === 'caseStudies') {
         content.caseStudies.push({
-          id: `case-study-${Date.now()}`, title: 'New Case Study', client: '', market: '', summary: '', challenge: '', insight: '', strategy: '', execution: '', results: '', contribution: '', mediaType: 'image', mediaUrl: '', externalLink: ''
+          id: `case-study-${Date.now()}`, title: 'New Case Study', client: '', market: '', summary: '', challenge: '', insight: '', strategy: '', execution: '', results: '', contribution: '', mediaType: 'none', mediaUrl: '', externalLink: '', images: []
         });
       } else if (collection === 'articles') {
         content.articles.push({ id: `article-${Date.now()}`, title: 'New Article', publication: '', date: '', summary: '', url: '', image: '' });
@@ -389,6 +556,7 @@
   document.getElementById('saveButton').addEventListener('click', () => {
     try {
       syncLegacyContact(content.contact);
+      content.caseStudies.forEach(syncLegacyCaseStudy);
       localStorage.setItem('cityOfInfluenceContent', JSON.stringify(content));
       markSaved();
     } catch (error) {
@@ -399,6 +567,7 @@
 
   document.getElementById('exportButton').addEventListener('click', () => {
     syncLegacyContact(content.contact);
+    content.caseStudies.forEach(syncLegacyCaseStudy);
     const blob = new Blob([JSON.stringify(content, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');

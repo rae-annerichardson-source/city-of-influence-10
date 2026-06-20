@@ -1,196 +1,199 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <title>Content Manager · City of Influence</title>
-  <link rel="stylesheet" href="styles.css?v=20260620-6">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="noindex,nofollow" name="robots"/>
+<title>Content Manager · City of Influence</title>
+<link href="styles.css?v=20260620-9" rel="stylesheet"/>
 </head>
 <body class="admin-shell">
-  <main id="adminLogin" class="admin-login-shell">
-    <section class="admin-login-card" aria-labelledby="adminLoginTitle">
-      <p class="eyebrow">Protected Update Portal</p>
-      <h1 id="adminLoginTitle">Content Manager</h1>
-      <p class="body-copy">Enter the portfolio administrator password to continue.</p>
-      <form id="adminLoginForm" class="admin-login-form" novalidate>
-        <label for="adminPassword">Password</label>
-        <input id="adminPassword" name="password" type="password" autocomplete="current-password" required>
-        <button class="button" type="submit">Open update portal</button>
-        <p id="adminLoginStatus" class="admin-login-status" role="alert" aria-live="polite"></p>
-      </form>
-      <a class="button-link" href="portfolio.html">Return to portfolio</a>
-    </section>
-  </main>
-
-  <div id="adminApp" hidden>
-  <header class="admin-header">
-    <div class="admin-header-inner">
-      <a class="brand" href="portfolio.html"><span class="brand-mark">City of Influence</span><span class="brand-name">Content Manager</span></a>
-      <div class="header-actions">
-        <a class="button-secondary" href="portfolio.html" target="_blank">Preview website</a>
-        <button class="button-secondary" id="adminLogout" type="button">Log out</button>
-      </div>
-    </div>
-  </header>
-
-  <main class="admin-main">
-    <section class="page-hero">
-      <p class="eyebrow">Update Portal</p>
-      <h1>Manage your portfolio</h1>
-      <p class="hero-support">Add and update your résumé link, brand gallery, case studies, published articles and contact information without editing HTML.</p>
-    </section>
-
-    <div class="admin-notice">
+<main class="admin-login-shell" id="adminLogin">
+<section aria-labelledby="adminLoginTitle" class="admin-login-card">
+<p class="eyebrow">Protected Update Portal</p>
+<h1 id="adminLoginTitle">Content Manager</h1>
+<p class="body-copy">Enter the portfolio administrator password to continue.</p>
+<form class="admin-login-form" id="adminLoginForm" novalidate="">
+<label for="adminPassword">Password</label>
+<input autocomplete="current-password" id="adminPassword" name="password" required="" type="password"/>
+<button class="button" type="submit">Open update portal</button>
+<p aria-live="polite" class="admin-login-status" id="adminLoginStatus" role="alert"></p>
+</form>
+<a class="button-link" href="portfolio.html">Return to portfolio</a>
+</section>
+</main>
+<div hidden="" id="adminApp">
+<header class="admin-header">
+<div class="admin-header-inner">
+<a class="brand" href="portfolio.html"><span class="brand-mark">City of Influence</span><span class="brand-name">Content Manager</span></a>
+<div class="header-actions">
+<a class="button-secondary" href="portfolio.html" target="_blank">Preview website</a>
+<button class="button-secondary" id="adminLogout" type="button">Log out</button>
+</div>
+</div>
+</header>
+<main class="admin-main">
+<section class="page-hero">
+<p class="eyebrow">Update Portal</p>
+<h1>Manage your portfolio</h1>
+<p class="hero-support">Add and update your résumé link, brand gallery, case studies, published articles and contact information without editing HTML.</p>
+</section>
+<div class="admin-notice">
       This prototype saves changes in the browser you are currently using. Use <strong>Export backup</strong> after updating. A hosted production version can later connect this portal to a secure cloud database so updates publish across all devices.
     </div>
-
-    <div class="admin-tabs" role="tablist" aria-label="Content sections">
-      <button class="admin-tab" role="tab" aria-selected="true" data-tab="profile">Profile & Contact</button>
-      <button class="admin-tab" role="tab" aria-selected="false" data-tab="resume">Résumé</button>
-      <button class="admin-tab" role="tab" aria-selected="false" data-tab="brands">Brands</button>
-      <button class="admin-tab" role="tab" aria-selected="false" data-tab="cases">Case Studies</button>
-      <button class="admin-tab" role="tab" aria-selected="false" data-tab="articles">Articles</button>
-      <button class="admin-tab" role="tab" aria-selected="false" data-tab="data">Backup & Restore</button>
-    </div>
-
-    <section class="admin-panel" data-panel="profile">
-      <article class="admin-card">
-        <div class="admin-card-head"><h2>Homepage profile</h2></div>
-        <div class="form-grid">
-          <div class="form-field"><label for="profileName">Name</label><input id="profileName" data-path="profile.name"></div>
-          <div class="form-field"><label for="profileRole">Role</label><input id="profileRole" data-path="profile.role"></div>
-          <div class="form-field full"><label for="profileQuote">Headline quote</label><input id="profileQuote" data-path="profile.quote"></div>
-          <div class="form-field full"><label for="profileIntro">Introduction</label><textarea id="profileIntro" data-path="profile.intro"></textarea></div>
-          <div class="form-field full"><label for="profileInstruction">Scene instruction</label><input id="profileInstruction" data-path="profile.instruction"></div>
-        </div>
-      </article>
-      <article class="admin-card">
-        <div class="admin-card-head">
-          <div>
-            <h2>Contact information</h2>
-            <p class="card-copy">Use the visibility switches to control what appears publicly.</p>
-          </div>
-        </div>
-        <div class="form-grid">
-          <div class="form-field">
-            <label for="contactEmail">Email</label>
-            <input id="contactEmail" type="email" data-path="contact.email">
-            <label class="visibility-toggle"><input type="checkbox" data-path="contact.visibility.email"> <span>Show email on website</span></label>
-          </div>
-          <div class="form-field">
-            <label for="contactLinkedInAdmin">LinkedIn URL</label>
-            <input id="contactLinkedInAdmin" type="url" data-path="contact.linkedin">
-            <label class="visibility-toggle"><input type="checkbox" data-path="contact.visibility.linkedin"> <span>Show LinkedIn on website</span></label>
-          </div>
-          <div class="form-field full">
-            <label for="contactLocationAdmin">Location</label>
-            <input id="contactLocationAdmin" data-path="contact.location">
-            <label class="visibility-toggle"><input type="checkbox" data-path="contact.visibility.location"> <span>Show location on website</span></label>
-          </div>
-        </div>
-      </article>
-
-      <article class="admin-card">
-        <div class="admin-card-head">
-          <div>
-            <h2>Phone numbers</h2>
-            <p class="card-copy">Add multiple numbers, label them and switch each one on or off independently.</p>
-          </div>
-          <button class="button" type="button" data-add-phone>Add phone number</button>
-        </div>
-        <div id="phonesEditor" class="phone-editor-list"></div>
-      </article>
-
-      <article class="admin-card">
-        <div class="admin-card-head"><h2>Availability and best suited for</h2></div>
-        <div class="form-grid">
-          <div class="form-field">
-            <label for="availabilityTitleAdmin">Availability heading</label>
-            <input id="availabilityTitleAdmin" data-path="contact.availabilityTitle">
-          </div>
-          <div class="form-field visibility-field">
-            <span class="field-label">Public visibility</span>
-            <label class="visibility-toggle"><input type="checkbox" data-path="contact.visibility.availability"> <span>Show Availability area</span></label>
-          </div>
-          <div class="form-field full">
-            <label for="availabilityTextAdmin">Availability text</label>
-            <textarea id="availabilityTextAdmin" data-path="contact.availabilityText"></textarea>
-          </div>
-          <div class="form-field">
-            <label for="bestSuitedTitleAdmin">Best Suited For heading</label>
-            <input id="bestSuitedTitleAdmin" data-path="contact.bestSuitedTitle">
-          </div>
-          <div class="form-field visibility-field">
-            <span class="field-label">Public visibility</span>
-            <label class="visibility-toggle"><input type="checkbox" data-path="contact.visibility.bestSuited"> <span>Show Best Suited For area</span></label>
-          </div>
-          <div class="form-field full">
-            <label for="bestSuitedTextAdmin">Best Suited For text</label>
-            <textarea id="bestSuitedTextAdmin" data-path="contact.bestSuitedText" placeholder="Enter one item per line"></textarea>
-            <span class="file-note">Each new line becomes a separate bullet on the public website.</span>
-          </div>
-        </div>
-      </article>
-    </section>
-
-    <section class="admin-panel" data-panel="resume" hidden>
-      <article class="admin-card">
-        <div class="admin-card-head"><h2>Downloadable résumé</h2></div>
-        <div class="form-grid">
-          <div class="form-field full"><label for="resumeUrl">OneDrive PDF share link</label><input id="resumeUrl" type="url" data-path="resume.url" placeholder="https://1drv.ms/... or your direct OneDrive share link"><span class="file-note">Use a public view/download link that visitors can open without signing in.</span></div>
-          <div class="form-field"><label for="resumeLabel">Link label</label><input id="resumeLabel" data-path="resume.label"></div>
-        </div>
-      </article>
-    </section>
-
-    <section class="admin-panel" data-panel="brands" hidden>
-      <article class="admin-card">
-        <div class="admin-card-head"><div><h2>Brands gallery</h2><p class="card-copy">Displayed on the full Brands I’ve Built page.</p></div><button class="button" type="button" data-add="brands">Add brand</button></div>
-        <div id="brandsEditor" class="item-editor-list"></div>
-      </article>
-    </section>
-
-    <section class="admin-panel" data-panel="cases" hidden>
-      <article class="admin-card">
-        <div class="admin-card-head"><div><h2>Case studies</h2><p class="card-copy">Displayed on the separate Ideas in Motion page.</p></div><button class="button" type="button" data-add="caseStudies">Add case study</button></div>
-        <div id="casesEditor" class="item-editor-list"></div>
-      </article>
-    </section>
-
-    <section class="admin-panel" data-panel="articles" hidden>
-      <article class="admin-card">
-        <div class="admin-card-head"><div><h2>Published articles</h2><p class="card-copy">Displayed on the Global Perspectives page and linked to the original digital article.</p></div><button class="button" type="button" data-add="articles">Add article</button></div>
-        <div id="articlesEditor" class="item-editor-list"></div>
-      </article>
-    </section>
-
-    <section class="admin-panel" data-panel="data" hidden>
-      <article class="admin-card">
-        <div class="admin-card-head"><h2>Backup, restore and reset</h2></div>
-        <p class="body-copy">Export a JSON backup after every update. You can import the file on another browser or device.</p>
-        <div class="data-actions">
-          <button class="button" id="exportButton" type="button">Export backup</button>
-          <label class="button-secondary" for="importFile">Import backup</label>
-          <input class="visually-hidden" id="importFile" type="file" accept="application/json,.json">
-          <button class="danger-button" id="resetButton" type="button">Reset placeholders</button>
-        </div>
-      </article>
-    </section>
-
-    <div class="admin-toolbar">
-      <button class="button" id="saveButton" type="button">Save changes</button>
-      <a class="button-secondary" href="portfolio.html" target="_blank">Preview homepage</a>
-      <a class="button-secondary" href="brands.html" target="_blank">Preview brands</a>
-      <a class="button-secondary" href="case-studies.html" target="_blank">Preview case studies</a>
-      <a class="button-secondary" href="articles.html" target="_blank">Preview articles</a>
-      <span class="admin-status" id="adminStatus" role="status">No unsaved changes</span>
-    </div>
-  </main>
-
-  </div>
-
-  <script src="content.js"></script>
-  <script src="admin-auth.js?v=20260620-4"></script>
+<div aria-label="Content sections" class="admin-tabs" role="tablist">
+<button aria-selected="true" class="admin-tab" data-tab="profile" role="tab">Profile &amp; Contact</button>
+<button aria-selected="false" class="admin-tab" data-tab="resume" role="tab">Résumé</button>
+<button aria-selected="false" class="admin-tab" data-tab="brands" role="tab">Brands</button>
+<button aria-selected="false" class="admin-tab" data-tab="cases" role="tab">Case Studies</button>
+<button aria-selected="false" class="admin-tab" data-tab="articles" role="tab">Articles</button>
+<button aria-selected="false" class="admin-tab" data-tab="data" role="tab">Backup &amp; Restore</button>
+</div>
+<section class="admin-panel" data-panel="profile">
+<article class="admin-card">
+<div class="admin-card-head"><h2>Homepage profile</h2></div>
+<div class="form-grid">
+<div class="form-field"><label for="profileName">Name</label><input data-path="profile.name" id="profileName"/></div>
+<div class="form-field"><label for="profileRole">Role</label><input data-path="profile.role" id="profileRole"/></div>
+<div class="form-field full"><label for="profileQuote">Headline quote</label><input data-path="profile.quote" id="profileQuote"/></div>
+<div class="form-field full"><label for="profileIntro">Introduction</label><textarea data-path="profile.intro" id="profileIntro"></textarea></div>
+<div class="form-field full"><label for="profileInstruction">Scene instruction</label><input data-path="profile.instruction" id="profileInstruction"/></div>
+</div>
+</article>
+<article class="admin-card">
+<div class="admin-card-head">
+<div>
+<h2>Contact information</h2>
+<p class="card-copy">Use the visibility switches to control what appears publicly.</p>
+</div>
+</div>
+<div class="form-grid">
+<div class="form-field">
+<label for="contactEmail">Email</label>
+<input data-path="contact.email" id="contactEmail" type="email"/>
+<label class="visibility-toggle"><input data-path="contact.visibility.email" type="checkbox"/> <span>Show email on website</span></label>
+</div>
+<div class="form-field">
+<label for="contactLinkedInAdmin">LinkedIn URL</label>
+<input data-path="contact.linkedin" id="contactLinkedInAdmin" type="url"/>
+<label class="visibility-toggle"><input data-path="contact.visibility.linkedin" type="checkbox"/> <span>Show LinkedIn on website</span></label>
+</div>
+<div class="form-field full">
+<label for="contactLocationAdmin">Location</label>
+<input data-path="contact.location" id="contactLocationAdmin"/>
+<label class="visibility-toggle"><input data-path="contact.visibility.location" type="checkbox"/> <span>Show location on website</span></label>
+</div>
+</div>
+</article>
+<article class="admin-card">
+<div class="admin-card-head">
+<div>
+<h2>Phone numbers</h2>
+<p class="card-copy">Add multiple numbers, label them and switch each one on or off independently.</p>
+</div>
+<button class="button" data-add-phone="" type="button">Add phone number</button>
+</div>
+<div class="phone-editor-list" id="phonesEditor"></div>
+</article>
+<article class="admin-card">
+<div class="admin-card-head"><h2>Availability and best suited for</h2></div>
+<div class="form-grid">
+<div class="form-field">
+<label for="availabilityTitleAdmin">Availability heading</label>
+<input data-path="contact.availabilityTitle" id="availabilityTitleAdmin"/>
+</div>
+<div class="form-field visibility-field">
+<span class="field-label">Public visibility</span>
+<label class="visibility-toggle"><input data-path="contact.visibility.availability" type="checkbox"/> <span>Show Availability area</span></label>
+</div>
+<div class="form-field full">
+<label for="availabilityTextAdmin">Availability text</label>
+<textarea data-path="contact.availabilityText" id="availabilityTextAdmin"></textarea>
+</div>
+<div class="form-field">
+<label for="bestSuitedTitleAdmin">Best Suited For heading</label>
+<input data-path="contact.bestSuitedTitle" id="bestSuitedTitleAdmin"/>
+</div>
+<div class="form-field visibility-field">
+<span class="field-label">Public visibility</span>
+<label class="visibility-toggle"><input data-path="contact.visibility.bestSuited" type="checkbox"/> <span>Show Best Suited For area</span></label>
+</div>
+<div class="form-field full">
+<label for="bestSuitedTextAdmin">Best Suited For text</label>
+<textarea data-path="contact.bestSuitedText" id="bestSuitedTextAdmin" placeholder="Enter one item per line"></textarea>
+<span class="file-note">Each new line becomes a separate bullet on the public website.</span>
+</div>
+</div>
+</article><article class="admin-card">
+<div class="admin-card-head"><div><h2>Contact page copy</h2><p class="card-copy">Edit the headings, labels and calls to action used on the public Contact page.</p></div></div>
+<div class="form-grid">
+<div class="form-field"><label for="contactPageEyebrow">Page eyebrow</label><input data-path="contactPage.eyebrow" id="contactPageEyebrow"/></div>
+<div class="form-field"><label for="contactPageTitle">Page heading</label><input data-path="contactPage.title" id="contactPageTitle"/></div>
+<div class="form-field full"><label for="contactPageIntro">Introductory text</label><textarea data-path="contactPage.intro" id="contactPageIntro"></textarea></div>
+<div class="form-field"><label for="contactReturnLabel">Return button text</label><input data-path="contactPage.returnLabel" id="contactReturnLabel"/></div>
+<div class="form-field"><label for="contactDetailsTag">Direct details label</label><input data-path="contactPage.detailsTag" id="contactDetailsTag"/></div>
+<div class="form-field"><label for="contactDetailsTitle">Direct details heading</label><input data-path="contactPage.detailsTitle" id="contactDetailsTitle"/></div>
+<div class="form-field"><label for="contactContextTag">Availability area label</label><input data-path="contactPage.contextTag" id="contactContextTag"/></div>
+<div class="form-field"><label for="contactEmailLabel">Email label</label><input data-path="contactPage.emailLabel" id="contactEmailLabel"/></div>
+<div class="form-field"><label for="contactPhoneLabel">Phone label</label><input data-path="contactPage.phoneLabel" id="contactPhoneLabel"/></div>
+<div class="form-field"><label for="contactLinkedInLabel">LinkedIn label</label><input data-path="contactPage.linkedinLabel" id="contactLinkedInLabel"/></div>
+<div class="form-field"><label for="contactLocationLabel">Location label</label><input data-path="contactPage.locationLabel" id="contactLocationLabel"/></div>
+<div class="form-field"><label for="contactPrimaryButtonLabel">Email button text</label><input data-path="contactPage.primaryButtonLabel" id="contactPrimaryButtonLabel"/></div>
+<div class="form-field"><label for="contactSecondaryButtonLabel">Portfolio button text</label><input data-path="contactPage.secondaryButtonLabel" id="contactSecondaryButtonLabel"/></div>
+<div class="form-field full"><label for="contactEmptyState">Empty-state message</label><input data-path="contactPage.emptyState" id="contactEmptyState"/></div>
+</div>
+</article>
+</section>
+<section class="admin-panel" data-panel="resume" hidden="">
+<article class="admin-card">
+<div class="admin-card-head"><h2>Downloadable résumé</h2></div>
+<div class="form-grid">
+<div class="form-field full"><label for="resumeUrl">OneDrive PDF share link</label><input data-path="resume.url" id="resumeUrl" placeholder="https://1drv.ms/... or your direct OneDrive share link" type="url"/><span class="file-note">Use a public view/download link that visitors can open without signing in.</span></div>
+<div class="form-field"><label for="resumeLabel">Link label</label><input data-path="resume.label" id="resumeLabel"/></div>
+</div>
+</article>
+</section>
+<section class="admin-panel" data-panel="brands" hidden="">
+<article class="admin-card">
+<div class="admin-card-head"><div><h2>Brands gallery</h2><p class="card-copy">Displayed on the full Brands I’ve Built page.</p></div><button class="button" data-add="brands" type="button">Add brand</button></div>
+<div class="item-editor-list" id="brandsEditor"></div>
+</article>
+</section>
+<section class="admin-panel" data-panel="cases" hidden="">
+<article class="admin-card">
+<div class="admin-card-head"><div><h2>Case studies</h2><p class="card-copy">Add the full case-study breakdown, an optional project link and up to five gallery images. Each image may also have its own optional link.</p></div><button class="button" data-add="caseStudies" type="button">Add case study</button></div>
+<div class="item-editor-list" id="casesEditor"></div>
+</article>
+</section>
+<section class="admin-panel" data-panel="articles" hidden="">
+<article class="admin-card">
+<div class="admin-card-head"><div><h2>Published articles</h2><p class="card-copy">Displayed on the Global Perspectives page and linked to the original digital article.</p></div><button class="button" data-add="articles" type="button">Add article</button></div>
+<div class="item-editor-list" id="articlesEditor"></div>
+</article>
+</section>
+<section class="admin-panel" data-panel="data" hidden="">
+<article class="admin-card">
+<div class="admin-card-head"><h2>Backup, restore and reset</h2></div>
+<p class="body-copy">Export a JSON backup after every update. You can import the file on another browser or device.</p>
+<div class="data-actions">
+<button class="button" id="exportButton" type="button">Export backup</button>
+<label class="button-secondary" for="importFile">Import backup</label>
+<input accept="application/json,.json" class="visually-hidden" id="importFile" type="file"/>
+<button class="danger-button" id="resetButton" type="button">Reset placeholders</button>
+</div>
+</article>
+</section>
+<div class="admin-toolbar">
+<button class="button" id="saveButton" type="button">Save changes</button>
+<a class="button-secondary" href="portfolio.html" target="_blank">Preview homepage</a>
+<a class="button-secondary" href="brands.html" target="_blank">Preview brands</a>
+<a class="button-secondary" href="case-studies.html" target="_blank">Preview case studies</a>
+<a class="button-secondary" href="articles.html" target="_blank">Preview articles</a>
+<a class="button-secondary" href="contact.html" target="_blank">Preview contact</a><span class="admin-status" id="adminStatus" role="status">No unsaved changes</span>
+</div>
+</main>
+</div>
+<script src="content.js?v=20260620-3"></script>
+<script src="admin-auth.js?v=20260620-9"></script>
 </body>
 </html>
