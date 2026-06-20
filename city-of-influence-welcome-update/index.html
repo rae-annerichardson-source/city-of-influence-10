@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Enter City of Influence, the interactive marketing portfolio of Rae-Anne Richardson, Sr. Marketing Strategist."
+    >
+    <meta name="theme-color" content="#071321">
+    <title>Rae-Anne Richardson · City of Influence</title>
+    <link rel="stylesheet" href="styles.css?v=20260620-6">
+  </head>
+  <body class="welcome-page">
+    <a class="skip-link welcome-skip-link" href="#welcome-content">Skip to entry</a>
+
+    <div class="welcome-visual" aria-hidden="true">
+      <picture class="welcome-picture">
+        <source media="(max-width: 768px)" srcset="scene-mobile.webp" type="image/webp">
+        <source media="(max-width: 768px)" srcset="scene-mobile-fallback.jpg" type="image/jpeg">
+        <source srcset="scene-desktop.webp" type="image/webp">
+        <img class="welcome-background" src="scene-desktop-fallback.jpg" alt="">
+      </picture>
+      <div class="welcome-depth welcome-depth-back"></div>
+      <div class="welcome-depth welcome-depth-mid"></div>
+      <div class="welcome-light-sweep"></div>
+      <div class="welcome-grain"></div>
+      <div class="welcome-vignette"></div>
+      <div class="welcome-city-word" aria-hidden="true">CITY OF INFLUENCE</div>
+    </div>
+
+    <main class="welcome-shell" id="welcome-content">
+      <section class="welcome-card" aria-labelledby="welcome-title">
+        <p class="welcome-eyebrow">
+          <span class="welcome-eyebrow-line"></span>
+          Interactive Portfolio
+        </p>
+
+        <h1 class="welcome-name" id="welcome-title">
+          <span>Rae-Anne</span>
+          <span>Richardson</span>
+        </h1>
+
+        <p class="welcome-role">Sr. Marketing Strategist</p>
+
+        <div class="welcome-rule" aria-hidden="true">
+          <span></span>
+        </div>
+
+        <p class="welcome-invitation">
+          Enter to explore the <strong>City of Influence</strong>.
+        </p>
+
+        <a class="welcome-enter" id="welcomeEnter" href="portfolio.html">
+          <span class="welcome-enter-label">Enter the City</span>
+          <span class="welcome-enter-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation">
+              <path d="M5 12h13M13 6l6 6-6 6"></path>
+            </svg>
+          </span>
+        </a>
+
+        <p class="welcome-note">Strategy. Story. Movement.</p>
+      </section>
+    </main>
+
+    <div class="welcome-coordinate welcome-coordinate-top" aria-hidden="true">
+      <span>10.6918° N</span>
+      <span>61.2225° W</span>
+    </div>
+    <div class="welcome-coordinate welcome-coordinate-bottom" aria-hidden="true">
+      <span>Shape</span>
+      <span>Influence</span>
+      <span>Impact</span>
+    </div>
+
+    <div class="welcome-transition" aria-hidden="true">
+      <div class="welcome-transition-core"></div>
+    </div>
+
+    <script>
+      (() => {
+        const page = document.body;
+        const enterLink = document.getElementById("welcomeEnter");
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        const goToPortfolio = () => {
+          window.location.assign("portfolio.html");
+        };
+
+        enterLink.addEventListener("click", (event) => {
+          if (reducedMotion.matches) return;
+
+          event.preventDefault();
+          if (page.classList.contains("is-entering")) return;
+
+          page.classList.add("is-entering");
+          enterLink.setAttribute("aria-disabled", "true");
+          window.setTimeout(goToPortfolio, 1080);
+        });
+
+        if (!reducedMotion.matches && window.matchMedia("(pointer: fine)").matches) {
+          let frame = null;
+
+          window.addEventListener("pointermove", (event) => {
+            if (frame) window.cancelAnimationFrame(frame);
+
+            frame = window.requestAnimationFrame(() => {
+              const x = (event.clientX / window.innerWidth - 0.5) * 2;
+              const y = (event.clientY / window.innerHeight - 0.5) * 2;
+              page.style.setProperty("--welcome-pointer-x", x.toFixed(3));
+              page.style.setProperty("--welcome-pointer-y", y.toFixed(3));
+            });
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
