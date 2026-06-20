@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Content Manager · City of Influence</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-shell">
+  <main id="adminLogin" class="admin-login-shell">
+    <section class="admin-login-card" aria-labelledby="adminLoginTitle">
+      <p class="eyebrow">Protected Update Portal</p>
+      <h1 id="adminLoginTitle">Content Manager</h1>
+      <p class="body-copy">Enter the portfolio administrator password to continue.</p>
+      <form id="adminLoginForm" class="admin-login-form" novalidate>
+        <label for="adminPassword">Password</label>
+        <input id="adminPassword" name="password" type="password" autocomplete="current-password" required>
+        <button class="button" type="submit">Open update portal</button>
+        <p id="adminLoginStatus" class="admin-login-status" role="alert" aria-live="polite"></p>
+      </form>
+      <a class="button-link" href="index.html">Return to portfolio</a>
+    </section>
+  </main>
+
+  <div id="adminApp" hidden>
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">City of Influence</span><span class="brand-name">Content Manager</span></a>
+      <div class="header-actions">
+        <a class="button-secondary" href="index.html" target="_blank">Preview website</a>
+        <button class="button-secondary" id="adminLogout" type="button">Log out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section class="page-hero">
+      <p class="eyebrow">Update Portal</p>
+      <h1>Manage your portfolio</h1>
+      <p class="hero-support">Add and update your résumé link, brand gallery, case studies, published articles and contact information without editing HTML.</p>
+    </section>
+
+    <div class="admin-notice">
+      This prototype saves changes in the browser you are currently using. Use <strong>Export backup</strong> after updating. A hosted production version can later connect this portal to a secure cloud database so updates publish across all devices.
+    </div>
+
+    <div class="admin-tabs" role="tablist" aria-label="Content sections">
+      <button class="admin-tab" role="tab" aria-selected="true" data-tab="profile">Profile & Contact</button>
+      <button class="admin-tab" role="tab" aria-selected="false" data-tab="resume">Résumé</button>
+      <button class="admin-tab" role="tab" aria-selected="false" data-tab="brands">Brands</button>
+      <button class="admin-tab" role="tab" aria-selected="false" data-tab="cases">Case Studies</button>
+      <button class="admin-tab" role="tab" aria-selected="false" data-tab="articles">Articles</button>
+      <button class="admin-tab" role="tab" aria-selected="false" data-tab="data">Backup & Restore</button>
+    </div>
+
+    <section class="admin-panel" data-panel="profile">
+      <article class="admin-card">
+        <div class="admin-card-head"><h2>Homepage profile</h2></div>
+        <div class="form-grid">
+          <div class="form-field"><label for="profileName">Name</label><input id="profileName" data-path="profile.name"></div>
+          <div class="form-field"><label for="profileRole">Role</label><input id="profileRole" data-path="profile.role"></div>
+          <div class="form-field full"><label for="profileQuote">Headline quote</label><input id="profileQuote" data-path="profile.quote"></div>
+          <div class="form-field full"><label for="profileIntro">Introduction</label><textarea id="profileIntro" data-path="profile.intro"></textarea></div>
+          <div class="form-field full"><label for="profileInstruction">Scene instruction</label><input id="profileInstruction" data-path="profile.instruction"></div>
+        </div>
+      </article>
+      <article class="admin-card">
+        <div class="admin-card-head"><h2>Contact information</h2></div>
+        <div class="form-grid">
+          <div class="form-field"><label for="contactEmail">Email</label><input id="contactEmail" type="email" data-path="contact.email"></div>
+          <div class="form-field"><label for="contactPhoneAdmin">Phone</label><input id="contactPhoneAdmin" data-path="contact.phone"></div>
+          <div class="form-field"><label for="contactLinkedInAdmin">LinkedIn URL</label><input id="contactLinkedInAdmin" type="url" data-path="contact.linkedin"></div>
+          <div class="form-field"><label for="contactLocationAdmin">Location</label><input id="contactLocationAdmin" data-path="contact.location"></div>
+          <div class="form-field full"><label for="contactNoteAdmin">Availability / contact note</label><textarea id="contactNoteAdmin" data-path="contact.note"></textarea></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="admin-panel" data-panel="resume" hidden>
+      <article class="admin-card">
+        <div class="admin-card-head"><h2>Downloadable résumé</h2></div>
+        <div class="form-grid">
+          <div class="form-field full"><label for="resumeUrl">OneDrive PDF share link</label><input id="resumeUrl" type="url" data-path="resume.url" placeholder="https://1drv.ms/... or your direct OneDrive share link"><span class="file-note">Use a public view/download link that visitors can open without signing in.</span></div>
+          <div class="form-field"><label for="resumeLabel">Link label</label><input id="resumeLabel" data-path="resume.label"></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="admin-panel" data-panel="brands" hidden>
+      <article class="admin-card">
+        <div class="admin-card-head"><div><h2>Brands gallery</h2><p class="card-copy">Displayed on the full Brands I’ve Built page.</p></div><button class="button" type="button" data-add="brands">Add brand</button></div>
+        <div id="brandsEditor" class="item-editor-list"></div>
+      </article>
+    </section>
+
+    <section class="admin-panel" data-panel="cases" hidden>
+      <article class="admin-card">
+        <div class="admin-card-head"><div><h2>Case studies</h2><p class="card-copy">Displayed on the separate Ideas in Motion page.</p></div><button class="button" type="button" data-add="caseStudies">Add case study</button></div>
+        <div id="casesEditor" class="item-editor-list"></div>
+      </article>
+    </section>
+
+    <section class="admin-panel" data-panel="articles" hidden>
+      <article class="admin-card">
+        <div class="admin-card-head"><div><h2>Published articles</h2><p class="card-copy">Displayed on the Global Perspectives page and linked to the original digital article.</p></div><button class="button" type="button" data-add="articles">Add article</button></div>
+        <div id="articlesEditor" class="item-editor-list"></div>
+      </article>
+    </section>
+
+    <section class="admin-panel" data-panel="data" hidden>
+      <article class="admin-card">
+        <div class="admin-card-head"><h2>Backup, restore and reset</h2></div>
+        <p class="body-copy">Export a JSON backup after every update. You can import the file on another browser or device.</p>
+        <div class="data-actions">
+          <button class="button" id="exportButton" type="button">Export backup</button>
+          <label class="button-secondary" for="importFile">Import backup</label>
+          <input class="visually-hidden" id="importFile" type="file" accept="application/json,.json">
+          <button class="danger-button" id="resetButton" type="button">Reset placeholders</button>
+        </div>
+      </article>
+    </section>
+
+    <div class="admin-toolbar">
+      <button class="button" id="saveButton" type="button">Save changes</button>
+      <a class="button-secondary" href="index.html" target="_blank">Preview homepage</a>
+      <a class="button-secondary" href="brands.html" target="_blank">Preview brands</a>
+      <a class="button-secondary" href="case-studies.html" target="_blank">Preview case studies</a>
+      <a class="button-secondary" href="articles.html" target="_blank">Preview articles</a>
+      <span class="admin-status" id="adminStatus" role="status">No unsaved changes</span>
+    </div>
+  </main>
+
+  </div>
+
+  <script src="content.js"></script>
+  <script src="admin-auth.js"></script>
+</body>
+</html>
