@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Content Manager · City of Influence</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260620-4">
 </head>
 <body class="admin-shell">
   <main id="adminLogin" class="admin-login-shell">
@@ -66,13 +66,70 @@
         </div>
       </article>
       <article class="admin-card">
-        <div class="admin-card-head"><h2>Contact information</h2></div>
+        <div class="admin-card-head">
+          <div>
+            <h2>Contact information</h2>
+            <p class="card-copy">Use the visibility switches to control what appears publicly.</p>
+          </div>
+        </div>
         <div class="form-grid">
-          <div class="form-field"><label for="contactEmail">Email</label><input id="contactEmail" type="email" data-path="contact.email"></div>
-          <div class="form-field"><label for="contactPhoneAdmin">Phone</label><input id="contactPhoneAdmin" data-path="contact.phone"></div>
-          <div class="form-field"><label for="contactLinkedInAdmin">LinkedIn URL</label><input id="contactLinkedInAdmin" type="url" data-path="contact.linkedin"></div>
-          <div class="form-field"><label for="contactLocationAdmin">Location</label><input id="contactLocationAdmin" data-path="contact.location"></div>
-          <div class="form-field full"><label for="contactNoteAdmin">Availability / contact note</label><textarea id="contactNoteAdmin" data-path="contact.note"></textarea></div>
+          <div class="form-field">
+            <label for="contactEmail">Email</label>
+            <input id="contactEmail" type="email" data-path="contact.email">
+            <label class="visibility-toggle"><input type="checkbox" data-path="contact.visibility.email"> <span>Show email on website</span></label>
+          </div>
+          <div class="form-field">
+            <label for="contactLinkedInAdmin">LinkedIn URL</label>
+            <input id="contactLinkedInAdmin" type="url" data-path="contact.linkedin">
+            <label class="visibility-toggle"><input type="checkbox" data-path="contact.visibility.linkedin"> <span>Show LinkedIn on website</span></label>
+          </div>
+          <div class="form-field full">
+            <label for="contactLocationAdmin">Location</label>
+            <input id="contactLocationAdmin" data-path="contact.location">
+            <label class="visibility-toggle"><input type="checkbox" data-path="contact.visibility.location"> <span>Show location on website</span></label>
+          </div>
+        </div>
+      </article>
+
+      <article class="admin-card">
+        <div class="admin-card-head">
+          <div>
+            <h2>Phone numbers</h2>
+            <p class="card-copy">Add multiple numbers, label them and switch each one on or off independently.</p>
+          </div>
+          <button class="button" type="button" data-add-phone>Add phone number</button>
+        </div>
+        <div id="phonesEditor" class="phone-editor-list"></div>
+      </article>
+
+      <article class="admin-card">
+        <div class="admin-card-head"><h2>Availability and best suited for</h2></div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="availabilityTitleAdmin">Availability heading</label>
+            <input id="availabilityTitleAdmin" data-path="contact.availabilityTitle">
+          </div>
+          <div class="form-field visibility-field">
+            <span class="field-label">Public visibility</span>
+            <label class="visibility-toggle"><input type="checkbox" data-path="contact.visibility.availability"> <span>Show Availability area</span></label>
+          </div>
+          <div class="form-field full">
+            <label for="availabilityTextAdmin">Availability text</label>
+            <textarea id="availabilityTextAdmin" data-path="contact.availabilityText"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="bestSuitedTitleAdmin">Best Suited For heading</label>
+            <input id="bestSuitedTitleAdmin" data-path="contact.bestSuitedTitle">
+          </div>
+          <div class="form-field visibility-field">
+            <span class="field-label">Public visibility</span>
+            <label class="visibility-toggle"><input type="checkbox" data-path="contact.visibility.bestSuited"> <span>Show Best Suited For area</span></label>
+          </div>
+          <div class="form-field full">
+            <label for="bestSuitedTextAdmin">Best Suited For text</label>
+            <textarea id="bestSuitedTextAdmin" data-path="contact.bestSuitedText" placeholder="Enter one item per line"></textarea>
+            <span class="file-note">Each new line becomes a separate bullet on the public website.</span>
+          </div>
         </div>
       </article>
     </section>
@@ -133,7 +190,7 @@
 
   </div>
 
-  <script src="content.js?v=20260620-3"></script>
-  <script src="admin-auth.js"></script>
+  <script src="content.js"></script>
+  <script src="admin-auth.js?v=20260620-4"></script>
 </body>
 </html>

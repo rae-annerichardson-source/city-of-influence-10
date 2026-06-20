@@ -1,17 +1,71 @@
 (function () {
-  let content = window.getCityContent ? window.getCityContent() : JSON.parse(JSON.stringify(window.CityContentDefaults));
+  const DEFAULT_BEST_SUITED = [
+    'Integrated campaign leadership',
+    'Executive and corporate communications strategy',
+    'Regional and international launches',
+    'Public-relations planning and reputation management',
+    'Senior-level advisory or consulting engagements'
+  ];
+
+  function clone(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function normaliseContent(source) {
+    const value = source || {};
+    if (!value.profile) value.profile = {};
+    if (!value.resume) value.resume = {};
+    if (!value.contact) value.contact = {};
+    if (!Array.isArray(value.brands)) value.brands = [];
+    if (!Array.isArray(value.caseStudies)) value.caseStudies = [];
+    if (!Array.isArray(value.articles)) value.articles = [];
+
+    const contact = value.contact;
+    if (!Array.isArray(contact.phones)) {
+      const legacyPhone = String(contact.phone || '').trim();
+      contact.phones = legacyPhone
+        ? [{ id: 'phone-1', label: 'Phone', number: legacyPhone, visible: true }]
+        : [];
+    }
+    contact.phones = contact.phones.map((phone, index) => ({
+      id: phone.id || `phone-${index + 1}`,
+      label: String(phone.label || 'Phone'),
+      number: String(phone.number || phone.phone || ''),
+      visible: phone.visible !== false
+    }));
+
+    contact.visibility = Object.assign({
+      email: true,
+      linkedin: true,
+      location: true,
+      availability: true,
+      bestSuited: true
+    }, contact.visibility || {});
+
+    if (typeof contact.availabilityTitle !== 'string') contact.availabilityTitle = 'Availability';
+    if (typeof contact.availabilityText !== 'string') contact.availabilityText = String(contact.note || '');
+    if (typeof contact.bestSuitedTitle !== 'string') contact.bestSuitedTitle = 'Best suited for';
+    if (typeof contact.bestSuitedText !== 'string') contact.bestSuitedText = DEFAULT_BEST_SUITED.join('\n');
+
+    syncLegacyContact(contact);
+    return value;
+  }
+
+  function syncLegacyContact(contact) {
+    const firstPhone = (contact.phones || []).find((item) => item.number) || {};
+    contact.phone = firstPhone.number || '';
+    contact.note = contact.availabilityText || '';
+  }
+
+  let content = normaliseContent(window.getCityContent ? window.getCityContent() : clone(window.CityContentDefaults));
   let dirty = false;
 
   const status = document.getElementById('adminStatus');
   const tabs = Array.from(document.querySelectorAll('[data-tab]'));
   const panels = Array.from(document.querySelectorAll('[data-panel]'));
 
-  function clone(value) {
-    return JSON.parse(JSON.stringify(value));
-  }
-
   function escapeHtml(value) {
-    return String(value || '').replace(/[&<>'"]/g, (char) => ({
+    return String(value || '').replace(/[&<>\'\"]/g, (char) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
     }[char]));
   }
@@ -38,6 +92,7 @@
       target = target[key];
     });
     target[keys[keys.length - 1]] = value;
+    syncLegacyContact(content.contact);
   }
 
   function slugify(value) {
@@ -60,14 +115,28 @@
 
   function fillStaticFields() {
     document.querySelectorAll('[data-path]').forEach((field) => {
-      field.value = getPath(field.dataset.path) || '';
+      const value = getPath(field.dataset.path);
+      if (field.type === 'checkbox') field.checked = Boolean(value);
+      else field.value = value ?? '';
     });
   }
 
   document.addEventListener('input', (event) => {
     const pathField = event.target.closest('[data-path]');
     if (pathField) {
-      setPath(pathField.dataset.path, pathField.value);
+      const value = pathField.type === 'checkbox' ? pathField.checked : pathField.value;
+      setPath(pathField.dataset.path, value);
+      markDirty();
+      return;
+    }
+
+    const phoneField = event.target.closest('[data-phone-index][data-phone-field]');
+    if (phoneField) {
+      const index = Number(phoneField.dataset.phoneIndex);
+      const field = phoneField.dataset.phoneField;
+      if (!content.contact.phones[index]) return;
+      content.contact.phones[index][field] = phoneField.value;
+      syncLegacyContact(content.contact);
       markDirty();
       return;
     }
@@ -101,6 +170,25 @@
         ${value ? `<img class="image-preview" src="${escapeHtml(value)}" alt="Current image preview">` : ''}
       </div>
     `;
+  }
+
+  function renderPhones() {
+    const root = document.getElementById('phonesEditor');
+    if (!root) return;
+    root.innerHTML = content.contact.phones.length ? content.contact.phones.map((phone, index) => `
+      <article class="phone-editor-row">
+        <div class="form-field">
+          <label for="phoneLabel${index}">Label</label>
+          <input id="phoneLabel${index}" data-phone-index="${index}" data-phone-field="label" value="${escapeHtml(phone.label)}" placeholder="Mobile, WhatsApp or Work">
+        </div>
+        <div class="form-field">
+          <label for="phoneNumber${index}">Phone number</label>
+          <input id="phoneNumber${index}" type="tel" data-phone-index="${index}" data-phone-field="number" value="${escapeHtml(phone.number)}" placeholder="+1 (868) 000-0000">
+        </div>
+        <label class="visibility-toggle phone-visibility"><input type="checkbox" data-phone-visible data-phone-index="${index}" ${phone.visible !== false ? 'checked' : ''}> <span>Show publicly</span></label>
+        <button class="danger-button" type="button" data-delete-phone data-phone-index="${index}">Remove</button>
+      </article>
+    `).join('') : '<div class="empty-state">No phone numbers added. Select “Add phone number” to begin.</div>';
   }
 
   function renderBrands() {
@@ -177,12 +265,23 @@
   }
 
   function renderDynamicSections() {
+    renderPhones();
     renderBrands();
     renderCases();
     renderArticles();
   }
 
   document.addEventListener('change', async (event) => {
+    const phoneVisibility = event.target.closest('[data-phone-visible]');
+    if (phoneVisibility) {
+      const index = Number(phoneVisibility.dataset.phoneIndex);
+      if (content.contact.phones[index]) {
+        content.contact.phones[index].visible = phoneVisibility.checked;
+        markDirty();
+      }
+      return;
+    }
+
     const selectField = event.target.closest('select[data-collection][data-index][data-field]');
     if (selectField) {
       const collection = selectField.dataset.collection;
@@ -237,6 +336,27 @@
   }
 
   document.addEventListener('click', (event) => {
+    const addPhoneButton = event.target.closest('[data-add-phone]');
+    if (addPhoneButton) {
+      content.contact.phones.push({ id: `phone-${Date.now()}`, label: 'Phone', number: '', visible: true });
+      syncLegacyContact(content.contact);
+      markDirty();
+      renderPhones();
+      return;
+    }
+
+    const deletePhoneButton = event.target.closest('[data-delete-phone]');
+    if (deletePhoneButton) {
+      const index = Number(deletePhoneButton.dataset.phoneIndex);
+      if (window.confirm('Remove this phone number?')) {
+        content.contact.phones.splice(index, 1);
+        syncLegacyContact(content.contact);
+        markDirty();
+        renderPhones();
+      }
+      return;
+    }
+
     const addButton = event.target.closest('[data-add]');
     if (addButton) {
       const collection = addButton.dataset.add;
@@ -268,6 +388,7 @@
 
   document.getElementById('saveButton').addEventListener('click', () => {
     try {
+      syncLegacyContact(content.contact);
       localStorage.setItem('cityOfInfluenceContent', JSON.stringify(content));
       markSaved();
     } catch (error) {
@@ -277,6 +398,7 @@
   });
 
   document.getElementById('exportButton').addEventListener('click', () => {
+    syncLegacyContact(content.contact);
     const blob = new Blob([JSON.stringify(content, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -295,7 +417,7 @@
     try {
       const imported = JSON.parse(await file.text());
       if (!imported.profile || !imported.contact || !Array.isArray(imported.caseStudies)) throw new Error('Invalid structure');
-      content = imported;
+      content = normaliseContent(imported);
       fillStaticFields();
       renderDynamicSections();
       markDirty('Backup imported — save changes');
@@ -308,7 +430,7 @@
 
   document.getElementById('resetButton').addEventListener('click', () => {
     if (!window.confirm('Reset all content to the original placeholders? This cannot be undone unless you exported a backup.')) return;
-    content = clone(window.CityContentDefaults);
+    content = normaliseContent(clone(window.CityContentDefaults));
     localStorage.removeItem('cityOfInfluenceContent');
     fillStaticFields();
     renderDynamicSections();
