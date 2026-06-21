@@ -3206,3 +3206,61 @@ body.resume-modal-open {
     gap: 0.05rem;
   }
 }
+
+
+/* =========================================================
+   CONTACT PHONE — KEEP LABEL AND NUMBER INLINE ON MOBILE
+   ========================================================= */
+
+@media (max-width: 560px) {
+  .contact-page #contactPhoneRow {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 0.55rem;
+    row-gap: 0;
+  }
+
+  .contact-page #contactPhoneRow > strong {
+    grid-column: 1;
+    margin: 0;
+    line-height: 1.45;
+    white-space: nowrap;
+  }
+
+  .contact-page #contactPhoneRow .contact-phone-list {
+    grid-column: 2;
+    min-width: 0;
+    margin: 0;
+    display: block;
+  }
+
+  .contact-page .contact-phone-item,
+  .contact-page .contact-phone-item.has-no-item-label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .contact-page .contact-phone-item a,
+  .contact-page .contact-phone-item > span:last-child {
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal;
+    font-size: clamp(0.88rem, 3.8vw, 1rem);
+  }
+}
+
+/* Very narrow devices retain one line without overlap. */
+@media (max-width: 360px) {
+  .contact-page #contactPhoneRow {
+    column-gap: 0.4rem;
+  }
+
+  .contact-page #contactPhoneRow > strong,
+  .contact-page .contact-phone-item a,
+  .contact-page .contact-phone-item > span:last-child {
+    font-size: 0.84rem;
+  }
+}
