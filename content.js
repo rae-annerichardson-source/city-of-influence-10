@@ -1,11 +1,11 @@
 /*
   City of Influence published content
-  Version: 20260620-12
+  Version: 20260621-01
 
   Public pages always use the content committed to GitHub.
   The admin page may still use browser localStorage while editing.
 */
-window.CityContentVersion = "20260620-12";
+window.CityContentVersion = "20260621-01";
 window.CityContentDefaults = {
   "profile": {
     "name": "Rae-Anne Richardson",
@@ -30,26 +30,32 @@ window.CityContentDefaults = {
     "phone": "+1 (868) 473-4629",
     "linkedin": "https://www.linkedin.com/in/rae-annerichardson",
     "location": "Port of Spain, Trinidad ",
-    "note": "Available for senior marketing and communications roles, strategic consulting, speaking and selected advisory work.",
+    "note": "Open to manager and senior specialist roles across corporate communications, integrated marketing, public relations, brand strategy and go-to-market. I bring award-winning creative thinking, multi-market experience and the commercial judgement to turn complex business priorities into clear stories, stronger reputation and measurable growth.",
     "phones": [
       {
         "id": "phone-1",
-        "label": "Phone",
+        "label": "🇹🇹 Phone",
         "number": "+1 (868) 473-4629",
+        "visible": true
+      },
+      {
+        "id": "phone-1782040235826",
+        "label": "🇬🇧 Phone",
+        "number": "+44 7592 987763",
         "visible": true
       }
     ],
     "visibility": {
       "email": true,
       "linkedin": true,
-      "location": true,
+      "location": false,
       "availability": true,
       "bestSuited": true
     },
-    "availabilityTitle": "Availability",
-    "availabilityText": "Available for senior marketing and communications roles, strategic consulting, speaking and selected advisory work.",
-    "bestSuitedTitle": "Best suited for",
-    "bestSuitedText": "Integrated campaign leadership\nExecutive and corporate communications strategy\nRegional and international launches\nPublic-relations planning and reputation management\nSenior-level advisory or consulting engagements"
+    "availabilityTitle": "The Next Global Brief",
+    "availabilityText": "Open to manager and senior specialist roles across corporate communications, integrated marketing, public relations, brand strategy and go-to-market. I bring award-winning creative thinking, multi-market experience and the commercial judgement to turn complex business priorities into clear stories, stronger reputation and measurable growth.",
+    "bestSuitedTitle": "Where I Move Brand Stories Forward",
+    "bestSuitedText": "Translate complex business strategies into stories people understand, trust and remember\nLaunch brands, products and campaigns across markets with clarity and cultural relevance\nBuild executive visibility, stakeholder confidence and corporate reputation\nUnite public relations, content, media and marketing around one compelling campaign idea\nShape go-to-market strategies that move from audience insight to adoption\nStrengthen brand voice across teams, channels and territories\nLead cross-functional teams through high-profile, high-stakes moments\nTurn attention into engagement, qualified demand and measurable growth"
   },
   "brands": [
     {
@@ -86,7 +92,7 @@ window.CityContentDefaults = {
       "approach": "[Strategic approach or brand-building contribution]",
       "outcome": "[Outcome or result]",
       "externalLink": "",
-      "image": "uploaded-brand-image-3.png"
+      "image": "brand-3.png"
     }
   ],
   "caseStudies": [
@@ -141,28 +147,28 @@ window.CityContentDefaults = {
   ],
   "articles": [
     {
-      "id": "article-1",
-      "title": "Placeholder Newspaper Article One",
-      "publication": "Publication Name",
+      "id": "freight-without-friction-how-ai-is-reengineering-the-language-of-global-trade",
+      "title": "Freight Without Friction: How AI Is Reengineering The Language Of Global Trade",
+      "publication": "Forbes",
       "date": "2026-01-15",
-      "summary": "Replace this entry with a published interview, feature, op-ed or media mention.",
-      "url": "https://example.com",
-      "image": "article-placeholder-1.svg"
+      "summary": "Somewhere right now, a container full of perishable goods is waiting at a port—not because it is unsafe, but because the paperwork is not talking to the data.",
+      "url": "https://www.forbes.com/councils/forbescommunicationscouncil/2025/10/30/freight-without-friction-how-ai-is-reengineering-the-language-of-global-trade/",
+      "image": "article-freight-without-friction.png"
     },
     {
-      "id": "article-2",
-      "title": "Placeholder Newspaper Article Two",
-      "publication": "Publication Name",
-      "date": "2026-02-20",
-      "summary": "Add the direct digital link so visitors can read the original coverage.",
-      "url": "https://example.com",
-      "image": "article-placeholder-2.svg"
+      "id": "ramps-logistics-executes-major-cargo-move-for-touchstone-s-cascadura-project",
+      "title": "Ramps Logistics Executes Major Cargo Move for Touchstone’s Cascadura Project",
+      "publication": "Yahoo",
+      "date": "2026-05-11",
+      "summary": "Ramps Logistics Ltd. successfully executed the transportation of critical compressor equipment for Touchstone Exploration Trinidad Limited's Cascadura Project, marking a major operational milestone in the advancement of one of Trinidad and Tobago's most significant recent onshore gas developments.",
+      "url": "https://finance.yahoo.com/sectors/energy/articles/ramps-logistics-executes-major-cargo-235300281.html?guccounter=1",
+      "image": "article-cascadura-project-cargo-move.png"
     }
   ],
   "contactPage": {
     "eyebrow": "Contact",
     "title": "Start a conversation",
-    "intro": "Connect with Rae-Anne Richardson for marketing strategy, communications leadership, consulting, speaking and selected collaborations.",
+    "intro": "Thank you for exploring the city. If what you’ve seen feels aligned with the role and where your team is headed, I’d love to continue the conversation.",
     "returnLabel": "Return to the city",
     "detailsTag": "Direct details",
     "detailsTitle": "Get in touch",
