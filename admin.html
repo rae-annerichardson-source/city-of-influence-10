@@ -4,25 +4,22 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="noindex,nofollow" name="robots"/>
-<title>Content Manager · City of Influence</title>
+<title>Manage Your Portfolio · City of Influence</title>
 <link href="styles.css?v=20260620-13" rel="stylesheet"/>
-</head>
+<script data-admin-guard="">
+(function () {
+  try {
+    if (sessionStorage.getItem('cityOfInfluenceAdminAuthenticated') !== 'true') {
+      window.location.replace('login.html');
+    }
+  } catch (error) {
+    window.location.replace('login.html');
+  }
+})();
+</script></head>
 <body class="admin-shell">
-<main class="admin-login-shell" id="adminLogin">
-<section aria-labelledby="adminLoginTitle" class="admin-login-card">
-<p class="eyebrow">Protected Update Portal</p>
-<h1 id="adminLoginTitle">Content Manager</h1>
-<p class="body-copy">Enter the portfolio administrator password to continue.</p>
-<form class="admin-login-form" id="adminLoginForm" novalidate="">
-<label for="adminPassword">Password</label>
-<input autocomplete="current-password" id="adminPassword" name="password" required="" type="password"/>
-<button class="button" type="submit">Open update portal</button>
-<p aria-live="polite" class="admin-login-status" id="adminLoginStatus" role="alert"></p>
-</form>
-<a class="button-link" href="portfolio.html">Return to portfolio</a>
-</section>
-</main>
-<div hidden="" id="adminApp">
+
+<div id="adminApp">
 <header class="admin-header">
 <div class="admin-header-inner">
 <a class="brand" href="portfolio.html"><span class="brand-mark">City of Influence</span><span class="brand-name">Content Manager</span></a>
@@ -239,7 +236,6 @@
 <label for="resumeDownloadLabel">Download button text</label>
 <input data-path="resume.downloadLabel" id="resumeDownloadLabel"/>
 </div>
-
 <div class="form-field full">
 <label for="resumeFallbackText">Preview fallback message</label>
 <input data-path="resume.fallbackText" id="resumeFallbackText" placeholder="If the preview takes longer than expected, you can download the résumé below."/>
@@ -286,7 +282,7 @@
 </div>
 </main>
 </div>
-<script src="content.js?v=20260620-3"></script>
-<script src="admin-auth.js?v=20260620-13"></script>
+<script src="content.js?v=20260620-12"></script><script src="admin-auth.js?v=20260620-14"></script><script src="admin.js?v=20260620-11"></script>
+
 </body>
 </html>

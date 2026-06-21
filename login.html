@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Protected login for the City of Influence update portal.">
+  <title>Update Portal Login · City of Influence</title>
+  <link rel="stylesheet" href="styles.css?v=20260620-14">
+</head>
+<body class="admin-shell">
+  <main class="admin-login-shell" id="adminLogin">
+    <section class="admin-login-card" aria-labelledby="adminLoginTitle">
+      <p class="eyebrow">Protected Update Portal</p>
+      <h1 id="adminLoginTitle">Content Manager</h1>
+      <p class="body-copy">Enter the portfolio administrator password to continue.</p>
+
+      <form class="admin-login-form" id="adminLoginForm" novalidate>
+        <label for="adminPassword">Password</label>
+        <input
+          id="adminPassword"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+        >
+        <button class="button" id="adminLoginButton" type="submit">
+          Open update portal
+        </button>
+        <p
+          class="admin-login-status"
+          id="adminLoginStatus"
+          role="alert"
+          aria-live="polite"
+        ></p>
+      </form>
+
+      <a class="button-link" href="portfolio.html">Return to portfolio</a>
+    </section>
+  </main>
+
+  <script src="admin-auth.js?v=20260620-14"></script>
+</body>
+</html>
