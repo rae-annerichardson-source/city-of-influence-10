@@ -214,6 +214,8 @@
   const drawerStatement = document.getElementById('drawerStatement');
   const drawerBody = document.getElementById('drawerBody');
   const sceneShell = document.getElementById('sceneShell');
+  const sceneImage = document.querySelector('.scene-image');
+  const sceneOverlayImages = Array.from(document.querySelectorAll('.motion-layers img'));
   const hotspotButtons = Array.from(document.querySelectorAll('.hotspot'));
   const closeButtons = drawer.querySelectorAll('[data-drawer-close]');
   const motionToggle = document.getElementById('motionToggle');
@@ -238,6 +240,60 @@
   let resumeFrameStarted = false;
   let resumeFrameLoaded = false;
   let resumeLoadTimer = null;
+
+
+  function waitForImage(image) {
+    if (!image) return Promise.resolve();
+
+    if (image.complete && image.naturalWidth > 0) {
+      if (typeof image.decode === 'function') {
+        return image.decode().catch(() => undefined);
+      }
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+      const finish = () => resolve();
+      image.addEventListener('load', finish, { once: true });
+      image.addEventListener('error', finish, { once: true });
+    }).then(() => {
+      if (typeof image.decode === 'function') {
+        return image.decode().catch(() => undefined);
+      }
+      return undefined;
+    });
+  }
+
+  function markSceneReady() {
+    if (!sceneShell || sceneShell.classList.contains('scene-ready')) return;
+
+    window.requestAnimationFrame(() => {
+      sceneShell.classList.remove('scene-loading');
+      sceneShell.classList.add('scene-ready');
+    });
+  }
+
+  function initialiseSceneReadiness() {
+    if (!sceneShell) return;
+
+    const deviceImages = sceneOverlayImages.filter((image) => {
+      const picture = image.closest('picture');
+      const mobileSource = picture?.querySelector('source[media*="max-width"]');
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      return isMobile ? Boolean(mobileSource) : true;
+    });
+
+    const decodeCriticalImages = Promise.allSettled([
+      waitForImage(sceneImage),
+      ...deviceImages.map(waitForImage)
+    ]);
+
+    const safetyTimeout = new Promise((resolve) => {
+      window.setTimeout(resolve, 1700);
+    });
+
+    Promise.race([decodeCriticalImages, safetyTimeout]).then(markSceneReady);
+  }
 
   function brandGalleryMarkup() {
     if (!content.brands.length) {
@@ -385,6 +441,18 @@
 
     resumeFrameStarted = true;
     setResumePreviewState('loading', 'Loading résumé preview…');
+
+    try {
+      const resumeOrigin = new URL(resume.embedUrl).origin;
+      const preconnect = document.createElement('link');
+      preconnect.rel = 'preconnect';
+      preconnect.href = resumeOrigin;
+      preconnect.crossOrigin = 'anonymous';
+      document.head.appendChild(preconnect);
+    } catch (error) {
+      // The validated embed URL can still load without an explicit preconnect.
+    }
+
     resumePreviewFrame.src = resume.embedUrl;
 
     resumeLoadTimer = window.setTimeout(() => {
@@ -400,7 +468,15 @@
   function scheduleResumePreload() {
     if (!resume.previewEnabled || !resume.embedUrl || !resumePreviewFrame) return;
 
-    const begin = () => window.setTimeout(startResumePreviewLoad, 120);
+    const begin = () => {
+      const loadWhenIdle = () => startResumePreviewLoad();
+
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadWhenIdle, { timeout: 4500 });
+      } else {
+        window.setTimeout(loadWhenIdle, 2200);
+      }
+    };
 
     if (document.readyState === 'complete') {
       begin();
@@ -531,6 +607,7 @@
     });
   }
 
+  initialiseSceneReadiness();
   configureResumeModal();
   scheduleResumePreload();
 

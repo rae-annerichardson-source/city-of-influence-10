@@ -3264,3 +3264,65 @@ body.resume-modal-open {
     font-size: 0.84rem;
   }
 }
+
+
+/* =========================================================
+   WELCOME → PORTFOLIO PERFORMANCE AND SCENE STABILITY
+   ========================================================= */
+
+/* Keep the base city visible while animated layers decode. */
+.scene-shell .motion-layers,
+.scene-shell .hotspots {
+  transition:
+    opacity 220ms ease,
+    visibility 220ms ease;
+}
+
+.scene-shell.scene-loading .motion-layers,
+.scene-shell.scene-loading .hotspots {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.scene-shell.scene-loading .scene-object {
+  animation-play-state: paused;
+}
+
+.scene-shell.scene-ready .motion-layers,
+.scene-shell.scene-ready .hotspots {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scene-shell.scene-ready .scene-object {
+  animation-play-state: running;
+}
+
+/* A shorter cinematic transition avoids the impression that the site froze. */
+.welcome-page.is-entering .welcome-transition::before {
+  animation-duration: 0.5s;
+}
+
+.welcome-page.is-entering .welcome-transition::after {
+  animation-duration: 0.16s;
+  animation-delay: 0.38s;
+}
+
+.welcome-page.is-entering .welcome-transition-core {
+  animation-duration: 0.46s;
+}
+
+.welcome-page.is-entering .welcome-card {
+  animation-duration: 0.4s;
+}
+
+.welcome-page.is-entering .welcome-background {
+  animation-duration: 0.56s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-shell .motion-layers,
+  .scene-shell .hotspots {
+    transition: none;
+  }
+}
