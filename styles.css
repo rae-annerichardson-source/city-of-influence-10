@@ -3138,3 +3138,71 @@ body.resume-modal-open {
     scroll-snap-type: none;
   }
 }
+
+
+/* =========================================================
+   CONTACT PHONE ALIGNMENT FIX
+   Prevents the Phone label and number from overlapping.
+   ========================================================= */
+
+.contact-page #contactPhoneRow {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
+  column-gap: 0.8rem;
+  row-gap: 0.35rem;
+}
+
+.contact-page #contactPhoneRow > strong {
+  grid-column: 1;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.contact-page #contactPhoneRow .contact-phone-list {
+  grid-column: 2;
+  min-width: 0;
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.contact-page .contact-phone-item {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.contact-page .contact-phone-item.has-no-item-label {
+  display: block;
+}
+
+.contact-page .contact-phone-item a,
+.contact-page .contact-phone-item > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+@media (max-width: 560px) {
+  .contact-page #contactPhoneRow {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.15rem;
+  }
+
+  .contact-page #contactPhoneRow > strong,
+  .contact-page #contactPhoneRow .contact-phone-list {
+    grid-column: 1;
+  }
+
+  .contact-page #contactPhoneRow .contact-phone-list {
+    margin-top: 0.1rem;
+  }
+
+  .contact-page .contact-phone-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.05rem;
+  }
+}

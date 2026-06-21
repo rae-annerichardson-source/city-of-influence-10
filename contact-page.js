@@ -133,11 +133,23 @@
 
   const visiblePhones = contact.phones.filter((item) => item.visible && item.number);
   if (phoneList) {
+    const genericPhoneLabel = String(pageCopy.phoneLabel || 'Phone').trim().toLowerCase();
+
     phoneList.innerHTML = visiblePhones.map((item) => {
       const href = phoneHref(item.number);
-      const label = escapeHtml(item.label);
+      const rawLabel = String(item.label || '').trim();
+      const label = escapeHtml(rawLabel);
       const number = escapeHtml(item.number);
-      return `<span class="contact-phone-item"><span class="contact-phone-label">${label}:</span>${href ? `<a href="${href}">${number}</a>` : number}</span>`;
+      const isSingleGenericPhone = visiblePhones.length === 1 &&
+        (!rawLabel || rawLabel.toLowerCase() === genericPhoneLabel || rawLabel.toLowerCase() === 'phone');
+      const labelMarkup = isSingleGenericPhone
+        ? ''
+        : `<span class="contact-phone-label">${label}:</span>`;
+      const numberMarkup = href
+        ? `<a href="${href}">${number}</a>`
+        : `<span>${number}</span>`;
+
+      return `<span class="contact-phone-item${isSingleGenericPhone ? ' has-no-item-label' : ''}">${labelMarkup}${numberMarkup}</span>`;
     }).join('');
   }
   setVisible(phoneRow, visiblePhones.length > 0);
