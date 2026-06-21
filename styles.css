@@ -2913,3 +2913,78 @@ body.resume-modal-open {
     animation: none;
   }
 }
+
+
+/* =========================================================
+   FIXED UPDATE-PORTAL ACTION BAR
+   Keeps Save and Preview controls visible at the bottom
+   of the browser window while the editor content scrolls.
+   ========================================================= */
+
+.admin-main {
+  /* Prevent the fixed action bar from covering the last editor fields. */
+  padding-bottom: calc(8.5rem + env(safe-area-inset-bottom));
+}
+
+.admin-toolbar {
+  position: fixed;
+  left: 50%;
+  right: auto;
+  bottom: max(0.75rem, env(safe-area-inset-bottom));
+  z-index: 120;
+  width: min(var(--container), calc(100% - 2rem));
+  max-width: calc(100% - 2rem);
+  margin: 0;
+  transform: translateX(-50%);
+  flex-wrap: nowrap;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 22px;
+  box-shadow:
+    0 18px 50px rgba(28, 56, 92, 0.22),
+    0 4px 14px rgba(28, 56, 92, 0.12);
+}
+
+.admin-toolbar > * {
+  flex: 0 0 auto;
+}
+
+.admin-toolbar .button,
+.admin-toolbar .button-secondary {
+  white-space: nowrap;
+}
+
+.admin-toolbar .admin-status {
+  margin-left: auto;
+  padding-right: 0.5rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .admin-main {
+    padding-bottom: calc(7.25rem + env(safe-area-inset-bottom));
+  }
+
+  .admin-toolbar {
+    bottom: max(0.5rem, env(safe-area-inset-bottom));
+    width: calc(100% - 1rem);
+    max-width: calc(100% - 1rem);
+    padding: 0.7rem;
+    border-radius: 18px;
+  }
+
+  .admin-toolbar .admin-status {
+    width: auto;
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-toolbar {
+    scroll-behavior: auto;
+  }
+}
