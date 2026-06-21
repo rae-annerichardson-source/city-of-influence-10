@@ -1,11 +1,11 @@
 /*
   City of Influence published content
-  Version: 20260621-01
+  Version: 20260621-02
 
   Public pages always use the content committed to GitHub.
   The admin page may still use browser localStorage while editing.
 */
-window.CityContentVersion = "20260621-01";
+window.CityContentVersion = "20260621-02";
 window.CityContentDefaults = {
   "profile": {
     "name": "Rae-Anne Richardson",
@@ -97,26 +97,26 @@ window.CityContentDefaults = {
   ],
   "caseStudies": [
     {
-      "id": "global-brand-launch",
-      "title": "Placeholder Case Study · Global Brand Launch",
-      "client": "Consumer technology brand",
-      "market": "Six international markets",
-      "summary": "A global launch platform designed for consistent positioning and flexible local execution.",
-      "challenge": "Introduce a new product across markets with different behaviours, media costs and cultural expectations.",
-      "insight": "A universal promise created consistency, while local proof points made the campaign credible.",
-      "strategy": "Create one campaign platform supported by modular messaging, channel planning and market-specific toolkits.",
-      "execution": "Campaign architecture, paid media framework, launch playbook, market rollout calendar and localisation guidance.",
-      "results": "Placeholder result: increased awareness, earned coverage and engagement across launch markets.",
-      "contribution": "Strategic lead responsible for positioning, campaign architecture and cross-market alignment.",
-      "mediaType": "image",
-      "mediaUrl": "case-placeholder-1.svg",
-      "externalLink": "",
+      "id": "cubby-cargo-building-an-award-winning-caribbean-freight-tech-brand",
+      "title": "Cubby Cargo: Building an Award-Winning Caribbean Freight-Tech Brand",
+      "client": "LogiTech, Freight Forwarding and Supply Chain",
+      "market": "Caribbean, USA, LATAM, UK, ASIA",
+      "summary": "I lead the integrated launch campaign for Cubby Cargo, a Caribbean-built digital freight-booking platform created to make international shipping faster, clearer and more accessible.\n\nDeveloped entirely by an in-house Corporate Communications team, the campaign translated a complex logistics product into a distinctive and approachable brand. It combined strategic positioning, experiential design, specialty advertising, social media, public relations and industry content.\n\nThe campaign earned a 2026 Silver American Advertising Award (ADDY) in the Specialty Advertising Campaign category.",
+      "challenge": "Cubby Cargo was entering a logistics sector still associated with manual processes, fragmented information and conservative, utilitarian branding.\n\nThe challenge was not simply to introduce another freight service. We needed to build confidence in a new digital way of managing cargo, communicate the platform’s value without relying on technical jargon, and establish credibility with businesses accustomed to traditional shipping processes.\n\nThe campaign also needed to differentiate Cubby from established logistics providers while demonstrating that a Caribbean-built technology brand could compete at an international creative and operational standard.",
+      "insight": "Small and medium-sized businesses, entrepreneurs and industrial importers are not looking for more logistics terminology. They want greater visibility, faster answers and confidence that their cargo is under control.\n\nHowever, adopting a new digital platform can feel like an additional layer of complexity. The brand therefore needed to make technology feel intuitive and useful rather than intimidating.\n\nWe recognised that a confident but approachable identity could help reduce this perceived complexity. By presenting Cubby as an intelligent booking companion rather than simply another logistics provider, the campaign made digital freight management feel more accessible.",
+      "strategy": "Our strategic proposition was simple:\nTurn freight complexity into coordinated, confident action.\nWe positioned Cubby Cargo as a locally built, digitally enabled partner that could simplify how Caribbean businesses access international trade.\nThe octopus became the central brand device. Its ability to manage multiple movements simultaneously represented intelligence, adaptability and coordination; the same qualities required to manage shipments, routes and decisions across international supply chains.\n\nA high-visibility purple-and-mint visual system deliberately challenged the muted conventions of the logistics category. It allowed the brand to communicate sophistication and approachability while creating immediate recognition across physical and digital environments.\n\nThe strategy connected brand positioning, product education, experiential marketing, social media, public relations and editorial content within one consistent launch platform.",
+      "execution": "The campaign was conceived and delivered entirely in-house with execution including:\n\nBrand positioning, campaign concept and launch messaging\nA high-impact trade-show booth and experiential launch environment\nSocial media content and digital campaign assets\nPublic relations, media outreach and launch communications\nBranded apparel, drinkware, accessories and specialty merchandise\nVisual and video content supporting product education\nA freight market brief published through local media\nConsistent brand storytelling across paid, earned, owned and physical touchpoints\n\nThe specialty merchandise was treated as more than promotional giveaway material. Each item was designed as a durable brand touchpoint that could extend Cubby’s visibility beyond the initial launch and create repeated opportunities for recall and conversation.\n\nThe freight market brief added an editorial layer to the campaign, positioning transparency, market intelligence and education as part of Cubby’s wider brand value.",
+      "results": "The launch established Cubby Cargo as a distinctive Caribbean freight-technology brand while delivering measurable commercial, operational and creative impact.\n\nThe campaign and supporting go-to-market programme:\nGenerated US$9 million in first-year revenue through coordinated product campaigns across four markets\nEquipped commercial teams with global go-to-market toolkits, pitch frameworks and strategic sales narratives tailored to the product and its target audiences\nImproved sales readiness by giving customer-facing teams clearer value propositions, campaign materials and product messaging\nReduced reporting time by 73% through an automated lead-routing and campaign-reporting process\nCreated a scalable launch framework spanning public relations, paid media, content, sales enablement, experiential marketing and product communications\nEstablished a distinctive and cohesive identity for a new Caribbean freight-technology platform\nGenerated regional and international media visibility for the product and the wider Ramps Logistics brand\nEarned a 2026 Silver American Advertising Award in the Specialty Advertising Campaign category\nPositioned Ramps Logistics as the only logistics company recognised among the award winners and one of the few non-agency organisations awarded for a complete campaign\n\nDemonstrated that an in-house communications team could produce commercially effective and internationally recognised creative work\nThe results showed that the campaign was not only a brand-building exercise. It supported product adoption, revenue generation, sales readiness and a more efficient lead-management process across multiple markets.",
+      "contribution": "Campaign Lead — Go-to-Market Strategy, Public Relations, Marketing, Content and Communications\n\nI led the Cubby Cargo campaign from initial brand concept and go-to-market planning through launch execution, performance monitoring and award submission. My role covered the strategic, creative, commercial and operational components of the campaign, ensuring that brand communications, paid media, public relations and sales enablement worked together as one coordinated launch programme.\n\nMy responsibilities included:\nDeveloping the octopus concept as the campaign’s central visual and strategic device, representing intelligence, adaptability and the coordination of multiple shipments, routes and logistics decisions\nEstablishing the overarching campaign concept, brand positioning, value proposition and launch narrative\nLeading the product’s go-to-market communications strategy across four markets\nDeveloping global GTM toolkits, pitch frameworks and strategic sales narratives to support commercial teams and improve sales readiness\nTranslating technical product capabilities into clear, persuasive and customer-focused messaging\nCreating the integrated communications plan for the Cubby Cargo launch activation\nLeading all public relations activity, including media strategy, press releases, media materials, journalist outreach, interview coordination and earned-media positioning\nLeading the marketing and content strategy across paid, earned, owned, experiential and editorial channels\nServing as campaign lead across graphic design, events, visual media and communications specialists\nWriting and editing the campaign copy, advertisements, launch messaging, press materials, digital content and supporting brand communications\nPlanning and managing advertising expenditure across the campaign\nMonitoring paid-media activity and campaign performance, using results to guide optimisation and reporting\nSupporting lead-generation workflows and implementing automated lead routing \nDirecting messaging and content requirements for the launch activation, specialty merchandise, digital assets and supporting campaign materials\nMaintaining strategic and creative consistency across customer, media, sales and stakeholder touchpoints\nIdentifying the campaign as an award opportunity, developing the award-entry narrative, assembling the supporting materials and submitting the campaign to the American Advertising Awards\n\nThrough this end-to-end leadership, I helped turn Cubby Cargo from a new digital logistics product into an award-winning, revenue-generating brand platform.",
+      "mediaType": "none",
+      "mediaUrl": "",
+      "externalLink": "https://www.guardian.co.tt/article/ramps-logistics-wins-silver-addy-for-cubby-cargo-campaign-6.2.2537269.bca8d4bc19",
       "images": [
         {
-          "id": "case-image-1-1",
-          "image": "case-placeholder-1.svg",
-          "link": "",
-          "alt": "Placeholder Case Study · Global Brand Launch"
+          "id": "case-image-1782058196859",
+          "image": "",
+          "link": "https://1drv.ms/f/c/b6c6e9f8db63fb16/IgBxnTaAJaPgSY1yfDnfRhT4Afr5NrtdQe2pLHRGsVBvxJc?e=pjtTD6",
+          "alt": "Cubby Cargo: Building an Award-Winning Caribbean Freight-Tech Brand"
         }
       ]
     },
