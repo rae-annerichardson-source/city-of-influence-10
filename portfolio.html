@@ -5,7 +5,7 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="City of Influence — an interactive motion portfolio for a senior marketing strategist." name="description"/>
 <title>Interactive Portfolio · City of Influence</title>
-<link href="styles.css?v=20260620-11" rel="stylesheet"/>
+<link href="//1drv.ms" rel="dns-prefetch"/><link crossorigin="" href="https://1drv.ms" rel="preconnect"/><link href="//onedrive.live.com" rel="dns-prefetch"/><link crossorigin="" href="https://onedrive.live.com" rel="preconnect"/><link href="styles.css?v=20260620-13" rel="stylesheet"/>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -153,22 +153,16 @@
         ✕
       </button>
 </header>
-<div class="resume-preview-stage">
-<iframe allowfullscreen="" hidden="" id="resumePreviewFrame" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Résumé preview"></iframe>
-<div class="resume-preview-placeholder" id="resumePreviewPlaceholder">
-<p>Résumé preview is not available yet.</p>
+<div class="resume-preview-stage" data-state="idle" id="resumePreviewStage">
+<iframe allowfullscreen="" aria-describedby="resumePreviewStatus" fetchpriority="high" hidden="" id="resumePreviewFrame" loading="eager" referrerpolicy="strict-origin-when-cross-origin" title="Résumé preview"></iframe>
+<div aria-live="polite" class="resume-preview-placeholder" id="resumePreviewStatus" role="status"><span aria-hidden="true" class="resume-preview-spinner"></span><p id="resumePreviewStatusText">Loading résumé preview…</p></div>
 </div>
-</div>
-<p class="resume-preview-note" id="resumePreviewNote">
-      If the preview does not load, use one of the options below.
-    </p>
+<p class="resume-preview-note" id="resumePreviewNote">If the preview takes longer than expected, you can download the résumé below.</p>
 <div class="resume-modal-actions">
 <a class="button" hidden="" id="resumeDownloadButton" rel="noopener" target="_blank">
         Download Résumé
       </a>
-<a class="button-secondary" hidden="" id="resumeOpenButton" rel="noopener" target="_blank">
-        Open Full Screen
-      </a>
+
 </div>
 </div>
 </aside><footer class="site-footer">
@@ -178,6 +172,6 @@
 </div>
 </footer>
 <script src="content.js?v=20260620-3"></script>
-<script src="app.js?v=20260620-11"></script>
+<script src="app.js?v=20260620-13"></script>
 </body>
 </html>

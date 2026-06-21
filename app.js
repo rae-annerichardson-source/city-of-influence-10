@@ -58,7 +58,7 @@
     modalTitle: 'Rae-Anne Richardson Résumé',
     downloadLabel: 'Download Résumé',
     openLabel: 'Open Full Screen',
-    fallbackText: 'If the preview does not load, use one of the options below.'
+    fallbackText: 'If the preview takes longer than expected, you can download the résumé below.'
   };
 
   function safeHttpsUrl(value) {
@@ -92,6 +92,13 @@
     const shareUrl = safeHttpsUrl(resume.url);
     const downloadUrl = safeHttpsUrl(resume.downloadUrl) || shareUrl;
 
+    const savedFallbackText = String(
+      resume.fallbackText || DEFAULT_RESUME.fallbackText
+    ).trim();
+    const fallbackText = savedFallbackText === 'If the preview does not load, use one of the options below.'
+      ? DEFAULT_RESUME.fallbackText
+      : savedFallbackText;
+
     return {
       embedUrl,
       shareUrl,
@@ -99,8 +106,7 @@
       previewEnabled: resume.previewEnabled === true,
       modalTitle: String(resume.modalTitle || DEFAULT_RESUME.modalTitle).trim(),
       downloadLabel: String(resume.downloadLabel || DEFAULT_RESUME.downloadLabel).trim(),
-      openLabel: String(resume.openLabel || DEFAULT_RESUME.openLabel).trim(),
-      fallbackText: String(resume.fallbackText || DEFAULT_RESUME.fallbackText).trim()
+      fallbackText
     };
   }
 
@@ -217,10 +223,11 @@
   const resumeModalPanel = resumeModal?.querySelector('.resume-modal-panel');
   const resumeModalTitle = document.getElementById('resumeModalTitle');
   const resumePreviewFrame = document.getElementById('resumePreviewFrame');
-  const resumePreviewPlaceholder = document.getElementById('resumePreviewPlaceholder');
+  const resumePreviewStage = document.getElementById('resumePreviewStage');
+  const resumePreviewPlaceholder = document.getElementById('resumePreviewStatus');
+  const resumePreviewStatusText = document.getElementById('resumePreviewStatusText');
   const resumePreviewNote = document.getElementById('resumePreviewNote');
   const resumeDownloadButton = document.getElementById('resumeDownloadButton');
-  const resumeOpenButton = document.getElementById('resumeOpenButton');
   const resumeCloseButtons = resumeModal
     ? Array.from(resumeModal.querySelectorAll('[data-resume-close]'))
     : [];
@@ -228,6 +235,9 @@
   let lastTrigger = null;
   let activeCategory = null;
   let lastResumeTrigger = null;
+  let resumeFrameStarted = false;
+  let resumeFrameLoaded = false;
+  let resumeLoadTimer = null;
 
   function brandGalleryMarkup() {
     if (!content.brands.length) {
@@ -316,6 +326,20 @@
   }
 
 
+  function setResumePreviewState(state, message) {
+    if (resumePreviewStage) {
+      resumePreviewStage.dataset.state = state;
+    }
+
+    if (resumePreviewStatusText && message) {
+      resumePreviewStatusText.textContent = message;
+    }
+
+    if (resumePreviewPlaceholder) {
+      resumePreviewPlaceholder.hidden = state === 'loaded';
+    }
+  }
+
   function configureResumeModal() {
     if (!resumeModal) return;
 
@@ -332,12 +356,14 @@
       resumePreviewFrame.title = `${resume.modalTitle} preview`;
     }
 
-    if (resumePreviewPlaceholder) {
-      resumePreviewPlaceholder.hidden = Boolean(resume.embedUrl);
-      const message = resume.embedUrl
-        ? ''
-        : 'An embedded résumé preview has not been configured.';
-      resumePreviewPlaceholder.innerHTML = message ? `<p>${escapeHtml(message)}</p>` : '';
+    if (!resume.embedUrl) {
+      setResumePreviewState('unavailable', 'An embedded résumé preview has not been configured.');
+    } else if (resumeFrameLoaded) {
+      setResumePreviewState('loaded');
+    } else if (resumeFrameStarted) {
+      setResumePreviewState('loading', 'Loading résumé preview…');
+    } else {
+      setResumePreviewState('idle', 'Preparing résumé preview…');
     }
 
     if (resumeDownloadButton) {
@@ -345,11 +371,41 @@
       resumeDownloadButton.href = resume.downloadUrl || '#';
       resumeDownloadButton.hidden = !resume.downloadUrl;
     }
+  }
 
-    if (resumeOpenButton) {
-      resumeOpenButton.textContent = resume.openLabel;
-      resumeOpenButton.href = resume.embedUrl || resume.shareUrl || '#';
-      resumeOpenButton.hidden = !(resume.embedUrl || resume.shareUrl);
+  function startResumePreviewLoad() {
+    if (
+      resumeFrameStarted ||
+      !resume.previewEnabled ||
+      !resume.embedUrl ||
+      !resumePreviewFrame
+    ) {
+      return;
+    }
+
+    resumeFrameStarted = true;
+    setResumePreviewState('loading', 'Loading résumé preview…');
+    resumePreviewFrame.src = resume.embedUrl;
+
+    resumeLoadTimer = window.setTimeout(() => {
+      if (!resumeFrameLoaded) {
+        setResumePreviewState(
+          'slow',
+          'The preview is taking a little longer to load. You can still download the résumé below.'
+        );
+      }
+    }, 8000);
+  }
+
+  function scheduleResumePreload() {
+    if (!resume.previewEnabled || !resume.embedUrl || !resumePreviewFrame) return;
+
+    const begin = () => window.setTimeout(startResumePreviewLoad, 120);
+
+    if (document.readyState === 'complete') {
+      begin();
+    } else {
+      window.addEventListener('load', begin, { once: true });
     }
   }
 
@@ -365,7 +421,7 @@
       return;
     }
 
-    // Preserve the existing direct-link behaviour until the preview is enabled.
+    // Preserve the direct-link fallback until the preview is enabled.
     if (!resume.previewEnabled) {
       const fallbackUrl = resume.shareUrl || resume.downloadUrl;
       if (fallbackUrl) window.open(fallbackUrl, '_blank', 'noopener');
@@ -373,17 +429,14 @@
     }
 
     if (!resumeModal || !resumeModalPanel) {
-      const fallbackUrl = resume.embedUrl || resume.shareUrl || resume.downloadUrl;
+      const fallbackUrl = resume.shareUrl || resume.downloadUrl;
       if (fallbackUrl) window.open(fallbackUrl, '_blank', 'noopener');
       return;
     }
 
     configureResumeModal();
+    startResumePreviewLoad();
     lastResumeTrigger = trigger || document.activeElement;
-
-    if (resumePreviewFrame && resume.embedUrl) {
-      resumePreviewFrame.src = resume.embedUrl;
-    }
 
     resumeModal.classList.add('is-open');
     resumeModal.setAttribute('aria-hidden', 'false');
@@ -398,10 +451,7 @@
     resumeModal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('resume-modal-open');
 
-    if (resumePreviewFrame) {
-      resumePreviewFrame.src = 'about:blank';
-    }
-
+    // Keep the iframe loaded so reopening the preview is immediate.
     if (lastResumeTrigger && typeof lastResumeTrigger.focus === 'function') {
       lastResumeTrigger.focus();
     }
@@ -469,7 +519,20 @@
     button.addEventListener('click', closeResumeModal);
   });
 
+  if (resumePreviewFrame) {
+    resumePreviewFrame.addEventListener('load', () => {
+      if (!resumeFrameStarted) return;
+      resumeFrameLoaded = true;
+      if (resumeLoadTimer) {
+        window.clearTimeout(resumeLoadTimer);
+        resumeLoadTimer = null;
+      }
+      setResumePreviewState('loaded');
+    });
+  }
+
   configureResumeModal();
+  scheduleResumePreload();
 
   closeButtons.forEach((button) => button.addEventListener('click', closeDrawer));
 
